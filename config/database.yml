@@ -6,6 +6,7 @@ default: &default
   password: Cylsys@678
   host: 103.228.83.115
 
+
 development:
   <<: *default
   database: Kodie_development
@@ -17,6 +18,6 @@ test:
 
 production:
   <<: *default
-  database: Kodie_procedure_production
-  username: Kodie_procedure
-  password: <%= ENV["KODIE_PROCEDURE_DATABASE_PASSWORD"] %>
+  database: Kodie_development
+  username: root
+  password: Cylsys@678

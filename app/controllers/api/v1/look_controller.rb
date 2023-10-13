@@ -1,5 +1,3 @@
-
-
 class Api::V1::LookController < ApplicationController
     def index
       p_parent_code = params[:P_PARENT_CODE]
@@ -11,4 +9,4 @@ class Api::V1::LookController < ApplicationController
       render json: { message: result }
     end
   end
-  
+

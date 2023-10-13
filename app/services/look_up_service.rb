@@ -29,4 +29,3 @@ class LookUpService
       processed_data
     end
   end
-  

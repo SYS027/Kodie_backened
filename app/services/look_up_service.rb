@@ -28,4 +28,3 @@ class LookUpService
     end
   end
   
-

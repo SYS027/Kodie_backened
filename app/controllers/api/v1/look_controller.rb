@@ -5,7 +5,6 @@ class Api::V1::LookController < ApplicationController
 
       look_up_service = LookUpService.new(p_parent_code, p_type)
       result = look_up_service.step_2
-  
       render json: { data: result , status: true }
     end
   end

@@ -21,6 +21,6 @@ class Api::V1::Step1Controller < ApplicationController
    
     step1_service.sp_step_one
 
-    render json: { message: 'Insert Data ' }
+    render json: { message: 'Insert Data ', status: true }
   end
 end

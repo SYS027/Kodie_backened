@@ -17,13 +17,13 @@ class Api::V1::AuthController < ApplicationController
       signup_service.signup
 
       # User signed up successfully
-      render json: { message: 'User signed up successfully' }
+      render json: { message: 'User signed up successfully' ,status: true}
     rescue ActiveRecord::RecordNotUnique => e
       # Handle the case where the email is not unique
-      render json: { error: 'User with this email already exists' }, status: :unprocessable_entity
+      render json: { error: 'User with this email already exists' , status: false}, status: :unprocessable_entity
     rescue StandardError => e
       # Handle other errors if needed
-      render json: { error: 'User with this email already exists' }, status: :internal_server_error
+      render json: { error: 'User with this email already exists' , status: false }, status: :internal_server_error
     end
   end
 

@@ -17,12 +17,12 @@ class Api::V1::SessionController < ApplicationController
         payload[:exp] = expiration_time     
         if result[1] != "Invalid credentials"
           token = JwtService.generate_token(payload)
-          render json: { user_id: user_id, message: result[1], token: token }
+          render json: { user_id: user_id, message: result[1], token: token ,status: true }
         else
-          render json: { user_id: nil, message: result[1] }
+          render json: { user_id: nil, message: result[1], status: false}
         end
       else
-        render json: { user_id: nil, message: result[1] }
+        render json: { user_id: nil, message: result[1] ,status: false }
       end
   end
 

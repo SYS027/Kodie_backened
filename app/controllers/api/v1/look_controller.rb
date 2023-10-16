@@ -9,4 +9,4 @@ class Api::V1::LookController < ApplicationController
       render json: { data: result , status: true }
     end
   end
-  
+

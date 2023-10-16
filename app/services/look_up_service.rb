@@ -18,14 +18,12 @@ class LookUpService
     private
   
     def process_data(results)
-      
       processed_data = results.map do |row|
         {
           lookup_key: row[0],
           description: row[1]
         }
       end
-  
       processed_data
     end
   end

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+ 
   namespace 'api' do
     namespace 'v1' do
       post 'signup', to: 'auth#signup'
@@ -7,6 +8,7 @@ Rails.application.routes.draw do
       post 'step1', to: 'step1#index'
       post 'reset_password' , to: 'session#reset_password'
       post 'lookup/step1' , to: 'look#index'
+      post 'current_user' , to: 'session#current_user'
     end
   end
 end

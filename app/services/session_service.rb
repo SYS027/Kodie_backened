@@ -21,6 +21,9 @@ class SessionService
    
   end
   
+  
+
+
   def initialize(user_id, password)
     @user_id = user_id
     @password = password

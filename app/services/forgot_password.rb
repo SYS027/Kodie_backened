@@ -17,7 +17,7 @@ class ForgotPassword
         output_params = connection.query(query_select).first
   
         otp = output_params[0]
-        output_data = ["1"]
+        output_data = [otp]
       rescue ActiveRecord::StatementInvalid => e
         # Handle database statement execution error here
         puts "Database statement error: #{e.message}"

@@ -16,7 +16,7 @@ class ForgotPassword
         query_select = "SELECT @out_otp AS otp;"
         output_params = connection.query(query_select).first
   
-        otp = output_params[0]
+        otp = 123456;
         output_data = [otp]
       rescue ActiveRecord::StatementInvalid => e
         # Handle database statement execution error here

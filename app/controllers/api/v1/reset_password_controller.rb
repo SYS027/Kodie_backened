@@ -5,6 +5,7 @@ class Api::V1::ResetPasswordController < ApplicationController
         email = params[:email]
         session_service = ForgotPassword.new(email)
         result = session_service.sp_reset_1(email)
+        binding.break;
         render json: { message: 'ok' , status: true }
     end
 

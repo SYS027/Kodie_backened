@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       post 'current_user' , to: 'session#current_user'
       post 'reset_password1' , to: 'reset_password#step_1_reset_password'
       post 'reset_password2' , to: 'reset_password#step_2_reset_password'
+      post 'reset_password4' , to: 'verification#step_1_reset_password'
     end
   end
 end

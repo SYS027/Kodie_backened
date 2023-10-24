@@ -19,7 +19,7 @@ gem 'rswag'
 
 
 # Use mysql as the database for Active Record
-# gem "mysql2", "~> 0.5"
+gem "mysql2", "~> 0.5"
 gem 'jwt'
  
 # Use the Puma web server [https://github.com/puma/puma]

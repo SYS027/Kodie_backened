@@ -18,7 +18,6 @@ class ForgotPassword
         output_params = connection.query(queryslect).first
         
           otp = output_params[0],
-         
         
         output_data=[otp]
        

@@ -1,6 +1,5 @@
 class Api::V1::ResetPasswordController < ApplicationController
 
-
     def step_1_reset_password
         email = params[:email]
         session_service = ForgotPassword.new(email)

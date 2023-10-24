@@ -3,7 +3,6 @@ class ForgotPassword
       @email = email
     end
   
-   
     def sp_reset_1(email)
       begin
         connection = ActiveRecord::Base.connection.raw_connection
@@ -18,7 +17,7 @@ class ForgotPassword
         output_params = connection.query(query_select).first
   
         otp = output_params[0]
-        output_data = [otp]
+        output_data = ["1"]
       rescue ActiveRecord::StatementInvalid => e
         # Handle database statement execution error here
         puts "Database statement error: #{e.message}"

@@ -45,12 +45,12 @@ class ForgotPassword
       # statement = connection.prepare(sql)
       # statement.execute()
       # statement.close
-      connection.close if connection
-      connection = ActiveRecord::Base.connection.raw_connection   # Call the stored procedure and pass the error message 
-       sql = "CALL USP_KODIE_INSERT_ERROR_LOG('forgot_password', ?);" 
-        statement = connection.prepare(sql)  
-        statement.execute(e.message) 
-        statement.close
+      # connection.close if connection
+      # connection = ActiveRecord::Base.connection.raw_connection   # Call the stored procedure and pass the error message 
+      #  sql = "CALL USP_KODIE_INSERT_ERROR_LOG('forgot_password', ?);" 
+      #   statement = connection.prepare(sql)  
+      #   statement.execute(e.message) 
+      #   statement.close
     ensure
       # Ensure the database connection is closed
       connection.close if connection

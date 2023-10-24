@@ -8,14 +8,29 @@ class SignupService
   end
 
   def signup
+    
     # Execute the stored procedure using ActiveRecord
     result = ActiveRecord::Base.connection.execute("
-      CALL USP_KODIE_INSERT__SIGNUP(
+      CALL USP_KODIE_INSERT_SIGNUP(
         '#{@email}',
         '#{@password}',
         #{@is_term_condition ? 1 : 0},
         #{@is_privacy_policy ? 1 : 0}
       )
     ")
+
+
+   
+      # Your existing signup logic
+  
+      # Generate OTP
+      # otp = SecureRandom.hex(3).upcase # Change the length as needed
+  
+      # Send OTP via email
+      # UserMailer.send_otp(email, otp).deliver_now
+  
+      # Add logic to store or verify OTP as needed
+   
   end
+
 end

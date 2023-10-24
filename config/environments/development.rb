@@ -52,6 +52,20 @@ Rails.application.configure do
 
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
+  config.action_mailer.delivery_method = :letter_opener
+
+  config.action_mailer.default_url_options = { host: 'localhost:3000' } # Update with your actual host
+config.action_mailer.delivery_method = :smtp
+config.action_mailer.perform_deliveries = true
+config.action_mailer.smtp_settings = {
+  address: 'smtp.example.com', # Update with your SMTP server
+  port: 587,
+  authentication: :plain,
+  user_name: 'pankajt0201@gmail.com',
+  password: 'pankajtete@123',
+  enable_starttls_auto: true
+}
+
 
 
   # Raises error for missing translations.

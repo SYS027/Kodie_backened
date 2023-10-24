@@ -26,13 +26,13 @@ class ForgotPassword
       rescue StandardError => e
         # Handle other exceptions here
         puts "An error occurred: #{e.message}"
-        result = ActiveRecord::Base.connection.execute("
-          CALL USP_KODIE_INSERT_ERROR_LOG(
-            'forgot_password API',
-            #{e.message}
-           
-          )
-        ")
+        connection = ActiveRecord::Base.connection.raw_connection
+        
+        sql = "CALL USP_KODIE_INSERT_ERROR_LOG('forgot_password', #{e.message});"
+  
+        statement = connection.prepare(sql)
+        statement.execute()
+        statement.close
       ensure
         # Ensure the database connection is closed
         connection.close if connection

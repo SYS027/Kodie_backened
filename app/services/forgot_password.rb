@@ -27,6 +27,7 @@ class ForgotPassword
       Rails.logger.error('step5')
       otp = output_params[0]
       Rails.logger.error('step6')
+      Rails.logger.error(otp)
       output_data = [otp]
       Rails.logger.error('step7')
       

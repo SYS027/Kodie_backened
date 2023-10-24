@@ -5,8 +5,17 @@ ruby "3.2.2"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.8"
+# gem 'rswag'
+# gem 'rspec-rails'
+group :development do
+  gem 'letter_opener'
+end
+gem 'bcrypt', '~> 3.1.7'
+gem 'omniauth-facebook'
+group :development, :test do
+  gem 'rspec-rails', '~> 3.5'
+end
 gem 'rswag'
-gem 'rspec-rails'
 
 
 # Use mysql as the database for Active Record

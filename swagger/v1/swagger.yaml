@@ -1,0 +1,158 @@
+openapi: 3.0.0
+info:
+  title: My API 
+  version: 1.0.0
+  servers: 
+   - url: http://localhost:3000/api/v1
+paths:
+  /api/v1/posts/{postId}:
+    parameters:
+      - name: postId
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Get a post by ID
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                id: 0
+                title: string
+                created_at: '2023-04-15T19:32:53.182Z'
+                updated_at: '2023-04-15T19:32:53.182Z'
+                url: string
+        '401':
+          description: UnauthorizedError
+          content:
+            application/json:
+              example:
+                error: UnauthorizedError
+                message: Unauthorized access
+        '404':
+          description: RecordNotFound
+          content:
+            application/json:
+              example:
+                error: RecordNotFound
+                message: Record not found
+
+    post:
+      summary: Create a new post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              title: string
+              url: string
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              example:
+                id: 1
+                title: string
+                created_at: '2023-04-15T19:32:53.182Z'
+                updated_at: '2023-04-15T19:32:53.182Z'
+                url: string
+        '401':
+          description: UnauthorizedError
+          content:
+            application/json:
+              example:
+                error: UnauthorizedError
+                message: Unauthorized access
+
+    put:
+      summary: Update a post by ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              title: string
+              url: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                id: 1
+                title: string
+                created_at: '2023-04-15T19:32:53.182Z'
+                updated_at: '2023-04-15T19:32:53.182Z'
+                url: string
+        '401':
+          description: UnauthorizedError
+          content:
+            application/json:
+              example:
+                error: UnauthorizedError
+                message: Unauthorized access
+        '404':
+          description: RecordNotFound
+          content:
+            application/json:
+              example:
+                error: RecordNotFound
+                message: Record not found
+
+    patch:
+      summary: Partially update a post by ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              title: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                id: 1
+                title: string
+                created_at: '2023-04-15T19:32:53.182Z'
+                updated_at: '2023-04-15T19:32:53.182Z'
+                url: string
+        '401':
+          description: UnauthorizedError
+          content:
+            application/json:
+              example:
+                error: UnauthorizedError
+                message: Unauthorized access
+        '404':
+          description: RecordNotFound
+          content:
+            application/json:
+              example:
+                error: RecordNotFound
+                message: Record not found
+
+    delete:
+      summary: Delete a post by ID
+      responses:
+        '204':
+          description: No content
+        '401':
+          description: UnauthorizedError
+          content:
+            application/json:
+              example:
+                error: UnauthorizedError
+                message: Unauthorized access
+        '404':
+          description: RecordNotFound
+          content:
+            application/json:
+              example:
+                error: RecordNotFound
+                message: Record not found

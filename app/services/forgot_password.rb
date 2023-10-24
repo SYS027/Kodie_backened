@@ -13,6 +13,9 @@ class ForgotPassword
       statement.execute(email)
       statement.close
 
+      # Move to the next result set
+      connection.next_result if connection.respond_to?(:next_result)
+
       query_select = "SELECT @out_otp AS otp;"
       result = connection.query(query_select).first
 

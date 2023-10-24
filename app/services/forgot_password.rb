@@ -26,13 +26,19 @@ class ForgotPassword
       # Handle other exceptions here
       puts "An error occurred: #{e.message}"
       Rails.logger.error("An error occurred: #{e.message}")
-      connection = ActiveRecord::Base.connection.raw_connection
+      # connection = ActiveRecord::Base.connection.raw_connection
 
-      sql = "CALL USP_KODIE_INSERT_ERROR_LOG('forgot_password', #{e.message});"
+      # sql = "CALL USP_KODIE_INSERT_ERROR_LOG('forgot_password', #{e.message});"
 
-      statement = connection.prepare(sql)
-      statement.execute()
-      statement.close
+      # statement = connection.prepare(sql)
+      # statement.execute()
+      # statement.close
+      connection.close if connection
+      connection = ActiveRecord::Base.connection.raw_connection   # Call the stored procedure and pass the error message 
+       sql = "CALL USP_KODIE_INSERT_ERROR_LOG('forgot_password', ?);" 
+        statement = connection.prepare(sql)  
+        statement.execute(e.message) 
+        statement.close
     ensure
       # Ensure the database connection is closed
       connection.close if connection

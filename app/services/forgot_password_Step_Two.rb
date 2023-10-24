@@ -17,8 +17,7 @@ class ForgotPasswordStepTwo
         queryslect ="SELECT @out_otp AS otp;"
         output_params = connection.query(queryslect).first
         
-          otp = output_params[0],
-         
+          otp = output_params[0]
         
         output_data=[otp]
        

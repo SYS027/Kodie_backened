@@ -21,11 +21,11 @@ class ForgotPassword
       rescue ActiveRecord::StatementInvalid => e
         # Handle database statement execution error here
         puts "Database statement error: #{e.message}"
-        output_data = [1]
+        output_data = [{e.message}]
       rescue StandardError => e
         # Handle other exceptions here
         puts "An error occurred: #{e.message}"
-        output_data = [2]
+        output_data = [{e.message}]
       ensure
         # Ensure the database connection is closed
         connection.close if connection

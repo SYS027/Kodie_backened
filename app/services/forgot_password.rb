@@ -20,10 +20,10 @@ class ForgotPassword
         output_data = [otp]
       rescue ActiveRecord::StatementInvalid => e
         # Handle database statement execution error here
-        puts "Database statement error: #{e.message}"
+        output_data =["#{e.message}"]
       rescue StandardError => e
         # Handle other exceptions here
-        puts "An error occurred: #{e.message}"
+        output_data =["#{e.message}"]
       ensure
         # Ensure the database connection is closed
         connection.close if connection

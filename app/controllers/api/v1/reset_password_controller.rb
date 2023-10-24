@@ -1,11 +1,11 @@
 class Api::V1::ResetPasswordController < ApplicationController
 
     def step_1_reset_password
-        # email = params[:email]
-        # session_service = ForgotPassword.new(email)
+        email = params[:email]
+        session_service = ForgotPassword.new(email)
         # result = session_service.sp_reset_1(email)
         # render json: {  message: , status: true }
-        render json: {message: "ok"}
+        render json: {message: email }
     end
 
     def step_2_reset_password

@@ -20,6 +20,9 @@ class ForgotPassword
       Rails.logger.error('step4')
       query_select = "SELECT @out_otp AS otp;"
       
+      connection.next_result if connection.respond_to?(:next_result)
+
+
       output_params = connection.query(query_select).first
       Rails.logger.error('step5')
       otp = output_params[0]

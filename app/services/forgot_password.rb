@@ -6,7 +6,7 @@ class ForgotPassword
   def sp_reset_1(email)
     begin
       connection = ActiveRecord::Base.connection.raw_connection
-      @out_otp = "0"
+      @out_otp = "000000"
       sql = "CALL RESET_PASSWORD_(?, @out_otp);"
 
 
@@ -28,7 +28,7 @@ class ForgotPassword
       otp = output_params[0]
       Rails.logger.error('step6')
       Rails.logger.error(otp)
-      output_data = otp
+      output_data = [otp,123456]
       Rails.logger.error('step7')
       
     rescue ActiveRecord::StatementInvalid => e

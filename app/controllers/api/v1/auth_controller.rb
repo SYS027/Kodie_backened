@@ -15,7 +15,7 @@ class Api::V1::AuthController < ApplicationController
     begin
       # Try to sign up the user using the service
       signup_service.signup
-
+      NotificationMailer.alert_admin.deliver
       # User signed up successfully
       render json: { message: 'User signed up successfully' ,status: true}
     rescue ActiveRecord::RecordNotUnique => e

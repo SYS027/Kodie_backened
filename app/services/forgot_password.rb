@@ -21,7 +21,18 @@ class ForgotPassword
       rescue ActiveRecord::StatementInvalid => e
         # Handle database statement execution error here
         puts "Database statement error: #{e.message}"
-        output_data = [{e.message}]
+        
+        result = ActiveRecord::Base.connection.execute("
+          CALL USP_KODIE_INSERT_ERROR_LOG(
+            'forgot_password API',
+            #{e.message}
+           
+          )
+        ")
+  
+      
+  
+        
       rescue StandardError => e
         # Handle other exceptions here
         puts "An error occurred: #{e.message}"

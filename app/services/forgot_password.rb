@@ -4,7 +4,7 @@ class ForgotPassword
     end
   
     def sp_reset_1(email)
-      begin
+     
         connection = ActiveRecord::Base.connection.raw_connection
         @out_otp = 0
         sql = "CALL RESET_PASSWORD_(?, @out_otp);"
@@ -18,15 +18,5 @@ class ForgotPassword
   
         otp = output_params[0]
         output_data = [otp]
-      rescue ActiveRecord::StatementInvalid => e
-        # Handle database statement execution error here
-        puts "Database statement error: #{e.message}"
-      rescue StandardError => e
-        # Handle other exceptions here
-        puts "An error occurred: #{e.message}"
-      ensure
-        # Ensure the database connection is closed
-        connection.close if connection
-      end
     end
   end

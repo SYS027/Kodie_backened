@@ -6,7 +6,7 @@ class Api::V1::ResetPasswordController < ApplicationController
         result = session_service.sp_reset_1(email)
         # render json: { otp: result [0] , result: result ,status: true  }
         # render json: { email: email , result: result , message: "Rails"}
-        render json: { "#{result.inspect}"}
+        render json: [ "#{result.inspect}"]
     end
 
     def step_2_reset_password

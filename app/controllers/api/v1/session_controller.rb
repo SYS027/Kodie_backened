@@ -38,12 +38,12 @@ class Api::V1::SessionController < ApplicationController
   end
 
   
-  # def reset_password
-  #   user_id = params[:user_id]
-  #   password = params[:password]
-  #   session_service = SessionService.new(user_id, password)
-  #   result = session_service.sp_reset_password(user_id, password)
-  #   render json: {message: result}
-  # end
+  def reset_password
+    user_id = params[:user_id]
+    password = params[:password]
+    session_service = SessionService.new(user_id, password)
+    result = session_service.sp_reset_password(user_id, password)
+    render json: {message: result}
+  end
 end
 

@@ -29,12 +29,12 @@ class SessionService
     @password = password
   end
   
-  # def sp_reset_password(user_id,password)
-  #   result = ActiveRecord::Base.connection.execute("
-  #     CALL USP_KODIE_MANAGE_RESET_PASSWORD(
-  #       '#{@user_id}',
-  #       '#{@password}'
-  #     )
-  #   ")
-  # end
+  def sp_reset_password(user_id,password)
+    result = ActiveRecord::Base.connection.execute("
+      CALL USP_KODIE_MANAGE_RESET_PASSWORD(
+        '#{@user_id}',
+        '#{@password}'
+      )
+    ")
+  end
 end

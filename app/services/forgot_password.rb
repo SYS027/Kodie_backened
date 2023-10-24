@@ -28,7 +28,7 @@ class ForgotPassword
       otp = output_params[0]
       Rails.logger.error('step6')
       Rails.logger.error(otp)
-      output_data = [otp]
+      output_data = otp
       Rails.logger.error('step7')
       
     rescue ActiveRecord::StatementInvalid => e

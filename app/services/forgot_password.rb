@@ -6,7 +6,7 @@ class ForgotPassword
     def sp_reset_1(email)
       begin
         connection = ActiveRecord::Base.connection.raw_connection
-        @out_otp = 0
+        @out_otp = "0"
         sql = "CALL RESET_PASSWORD_(?, @out_otp);"
   
         statement = connection.prepare(sql)

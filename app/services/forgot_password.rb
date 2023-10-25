@@ -62,8 +62,9 @@ class ForgotPassword
       statement.close
       output_params = connection.query(query_select).first
       Rails.logger.error('step5')
-      otp = output_params[0]
+      otp = output_params[1]
       Rails.logger.error(otp)
+      
       NotificationMailer.with(email: email).alert_admin(otp).deliver
       Rails.logger.error('step6')
       Rails.logger.error(otp.length())

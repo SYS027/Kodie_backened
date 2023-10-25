@@ -117,7 +117,8 @@ class ForgotPassword
       otp = output_params[0].to_s
       Rails.logger.error(otp)
       
-      send_combined_otp(otp, email)
+      combined_otp = combine_digits(otp)
+      send_combined_otp(combined_otp, email)
       Rails.logger.error('step6')
      
     rescue ActiveRecord::StatementInvalid => e
@@ -136,8 +137,14 @@ class ForgotPassword
 
   private
 
-  def send_combined_otp(otp, email)
-    NotificationMailer.with(email: email).alert_admin(otp).deliver
+  def combine_digits(otp)
+    combined_otp = ""
+    otp.each_char { |digit| combined_otp += digit }
+    combined_otp
+  end
+
+  def send_combined_otp(combined_otp, email)
+    NotificationMailer.with(email: email).alert_admin(combined_otp).deliver
   end
 end
 

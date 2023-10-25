@@ -88,9 +88,6 @@
 #   end
 # end
 
-
-
-
 class ForgotPassword
   def initialize(email)
     @email = email
@@ -120,7 +117,7 @@ class ForgotPassword
       otp = output_params[0].to_s
       Rails.logger.error(otp)
       
-      send_individual_digits(otp, email)
+      send_combined_otp(otp, email)
       Rails.logger.error('step6')
      
     rescue ActiveRecord::StatementInvalid => e
@@ -139,14 +136,10 @@ class ForgotPassword
 
   private
 
-  def send_individual_digits(otp, email)
-    otp.each_char do |digit|
-      individual_otp = digit
-      NotificationMailer.with(email: email).alert_admin(individual_otp).deliver
-    end
+  def send_combined_otp(otp, email)
+    NotificationMailer.with(email: email).alert_admin(otp).deliver
   end
 end
-
 
 
 

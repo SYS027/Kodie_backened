@@ -89,40 +89,58 @@
 # end
 
 
+
 class ForgotPassword
   def initialize(email)
     @email = email
   end
 
-  def generate_otp
-    # Replace this with your actual OTP generation logic
-    SecureRandom.random_number(100_0000).to_s.rjust(6, '0')
-  end
-
-  def send_otp_email(otp, email)
-    NotificationMailer.with(email: email).alert_admin(otp).deliver
-  end
-
   def sp_reset_1(email)
     begin
+      connection = ActiveRecord::Base.connection.raw_connection
+      @out_otp = "000000"
+      sql = "CALL RESET_PASSWORD_(?, @out_otp);"
+
       Rails.logger.error('step1')
 
-      otp = generate_otp
+      statement = connection.prepare(sql)
+      Rails.logger.error('step2')
+      statement.execute(email)
+      Rails.logger.error('step3')
+      
+      Rails.logger.error('step4')
+      query_select = "SELECT @out_otp AS otp;"
+      
+      connection.next_result if connection.respond_to?(:next_result)
+
+      statement.close
+      output_params = connection.query(query_select).first
+      Rails.logger.error('step5')
+      otp = output_params['otp'].to_s # Assuming the column name is 'otp' in the result set
       Rails.logger.error(otp)
       
       send_otp_email(otp, email)
-      Rails.logger.error('step2')
+      Rails.logger.error('step6')
      
+    rescue ActiveRecord::StatementInvalid => e
+      # Handle database statement execution error here
+      puts "Database statement error: #{e.message}"
+      Rails.logger.error("Database statement error: #{e.message}")
     rescue StandardError => e
       # Handle other exceptions here
       puts "An error occurred: #{e.message}"
       Rails.logger.error("An error occurred: #{e.message}")
       # NotificationMailer.alert_admin.deliver
+    ensure
+      connection.close if connection
     end
   end
+
+  private
+
+  def send_otp_email(otp, email)
+    NotificationMailer.with(email: email).alert_admin(otp).deliver
+  end
 end
-
-
-
 
 

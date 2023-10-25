@@ -1,6 +1,7 @@
 class NotificationMailer < ApplicationMailer
-
-    def alert_admin
-     mail(to: "rails@gmail.com",subject: "ALERT From ADMIN")
+    default from: 'Pankaj.Tete@cylsys.com'
+    def alert_admin(otp)
+    @otp=otp
+     mail(to: params[:email],subject: "ALERT From ADMIN")
     end    
 end

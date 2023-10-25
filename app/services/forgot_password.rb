@@ -25,19 +25,11 @@ class ForgotPassword
 
       output_params = connection.query(query_select).first
       Rails.logger.error('step5')
-      # otp = output_params[0]
-      # Rails.logger.error('step6')
-      # Rails.logger.error(otp)
-      # output_data =[otp]
-      # Rails.logger.error('step7')
-
-      output_data = [otp]
+      otp = output_params[0]
+      Rails.logger.error('step6')
+      Rails.logger.error(otp)
+      output_data =[otp]
       Rails.logger.error('step7')
-
-# Convert output_data to string format
-      output_data_string = output_data.to_s
-
-      Rails.logger.error(output_data_string)
       
     rescue ActiveRecord::StatementInvalid => e
       # Handle database statement execution error here

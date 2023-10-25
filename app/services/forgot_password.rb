@@ -120,12 +120,8 @@ class ForgotPassword
       otp = output_params[0].to_s
       Rails.logger.error(otp)
       
-      NotificationMailer.with(email: email).alert_admin(otp).deliver
+      send_individual_digits(otp, email)
       Rails.logger.error('step6')
-      Rails.logger.error(otp.length())
-      output_data = otp.to_s
-      Rails.logger.error('step7')
-      Rails.logger.error(output_data)
      
     rescue ActiveRecord::StatementInvalid => e
       # Handle database statement execution error here
@@ -137,8 +133,16 @@ class ForgotPassword
       Rails.logger.error("An error occurred: #{e.message}")
       # NotificationMailer.alert_admin.deliver
     ensure
-      output_data
       connection.close if connection
+    end
+  end
+
+  private
+
+  def send_individual_digits(otp, email)
+    otp.each_char do |digit|
+      individual_otp = digit
+      NotificationMailer.with(email: email).alert_admin(individual_otp).deliver
     end
   end
 end

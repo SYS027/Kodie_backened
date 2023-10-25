@@ -1,18 +1,18 @@
 # app/controllers/sessions_controller.rb
 class Api::V1::SessionController < ApplicationController
 
-  def current_user
-    user_id = params[:user_id]
-    session_service = SessionService.new(user_id)
-    result = session_service.current_user
-    render json: { email: result[0] , status: true }
-  end
+  # def current_user
+  #   user_id = params[:user_id]
+  #   session_service = SessionService.new(user_id)
+  #   result = session_service.current_user
+  #   render json: { email: result[0] , status: true }
+  # end
  
 
   def login
     email = params[:email]
     password = params[:password]
-    session_service = SessionService.new(email, password)
+    session_service = SessionService.new
     result = session_service.sp_session(email, password)
     
     if result[0].present?
@@ -34,15 +34,12 @@ class Api::V1::SessionController < ApplicationController
     end
   end
   
-  def logout
-  end
 
-  
   def reset_password
-    user_id = params[:user_id]
+    email = params[:email]
     password = params[:password]
-    session_service = SessionService.new(user_id, password)
-    result = session_service.sp_reset_password(user_id, password)
+    session_service = ForgotPasswordStep3.new(email, password)
+    result = session_service.sp_reset_password(email, password)
     render json: {message: result}
   end
 end

@@ -1,5 +1,7 @@
 # app/services/session_service.rb
 class SessionService
+ 
+ 
   def sp_session(email, password)
     connection = ActiveRecord::Base.connection.raw_connection
     @out_user_id=0;
@@ -24,17 +26,5 @@ class SessionService
   
 
 
-  def initialize(user_id, password)
-    @user_id = user_id
-    @password = password
-  end
   
-  def sp_reset_password(user_id,password)
-    result = ActiveRecord::Base.connection.execute("
-      CALL USP_KODIE_MANAGE_RESET_PASSWORD(
-        '#{@user_id}',
-        '#{@password}'
-      )
-    ")
-  end
 end

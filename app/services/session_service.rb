@@ -11,7 +11,7 @@ class SessionService
     statement = connection.prepare(sql)
     statement.execute(email, password)
     statement.close
-   
+    
   
     queryslect ="SELECT @out_user_id AS user_id, @out_message AS message;"
     output_params = connection.query(queryslect).first
@@ -20,6 +20,7 @@ class SessionService
       message = output_params[1]
     
     output_data=[user_id,message]
+    
    
   end
   

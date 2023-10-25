@@ -1,5 +1,40 @@
-Hi Admin you Verification code is this;
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style>
+        .h1{
+           
+            text-align: center;
+            color: white;
+            
+         }
+         .otp{
+           
+            background-color: rgba(17, 17, 156, 0.616);
+            width: 180px;
+            height: 60px;
+           
+         }
+         .main{
+            width: 100%;
+            height: 100%;
+            background-color: rgba(137, 43, 226, 0.616);
+            border-radius: 20px ;
+            padding: 40px 40px 40px 40px;
+         }
+    </style>
+  </head>
 
-
-<%= params[:email]%>
-<%= @otp %>
+  <body>
+     <div class="main">
+           <h1 class="h1">WELCOME TO KODIEE</h1>
+           <h4 style="text-align: center;color:white;"> Hi <%= params[:email] %> Your Email Verification Code  </h4>
+           <div style="display: flex;justify-content: center;">
+           <div class="otp">
+               <h4 style="color: white;text-align: center;"><%= @otp[0] %></h4>
+           </div>
+        </div>
+    </div>
+  </body>
+</html>

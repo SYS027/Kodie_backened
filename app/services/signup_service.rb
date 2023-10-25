@@ -21,16 +21,6 @@ class SignupService
 
 
    
-      # Your existing signup logic
-  
-      # Generate OTP
-      # otp = SecureRandom.hex(3).upcase # Change the length as needed
-  
-      # Send OTP via email
-      # UserMailer.send_otp(email, otp).deliver_now
-  
-      # Add logic to store or verify OTP as needed
-   
   end
 
 end

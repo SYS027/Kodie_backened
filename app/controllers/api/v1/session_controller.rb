@@ -27,8 +27,10 @@ class Api::V1::SessionController < ApplicationController
       }
   
        token = JwtService.generate_token(payload)
+       setService= VerificationService.new(user_id[0],params[:email],token)
+        setData=setService.sp_login_details
        response.headers['Authorization'] = "Bearer #{token}"
-      render json: { user_id: user_id, token: token, message: result[1], status: true }
+      render json: { user_id:user_id[0], token: token, message: result[1],email: params[:email], status: true }
     else
       render json: { user_id: nil, message: result[1], status: false }
     end

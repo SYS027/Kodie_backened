@@ -11,8 +11,8 @@ config.action_mailer.smtp_settings = {
   address: "smtp-mail.outlook.com",
   port: 587,
   domain: "yourapp.herokuapp.com", 
-  user_name: "Pankaj.Tete@cylsys.com",
-  password: "Cylsys@2",
+  user_name: ENV['SMTP_USERNAME'],
+  password: ENV['SMTP_PASSWORD'],
   authentication: :login,
   enable_starttls_auto: true
 }

@@ -7,17 +7,32 @@ Rails.application.configure do
   config.cache_classes = true
 
   
-  config.action_mailer.delivery_method = :smtp
+#   config.action_mailer.delivery_method = :smtp
+# config.action_mailer.smtp_settings = {
+#   address: "smtp-mail.outlook.com",
+#   port: 587,
+#   domain: "yourapp.herokuapp.com", 
+#   user_name: ENV['SMTP_USERNAME'],
+#   password: ENV['SMTP_PASSWORD'],
+#   authentication: :login,
+#   enable_starttls_auto: true
+# }
+config.action_mailer.delivery_method = :smtp
 config.action_mailer.smtp_settings = {
   address: "smtp-mail.outlook.com",
   port: 587,
-  domain: "yourapp.herokuapp.com", 
+  domain: "yourapp.herokuapp.com",
   user_name: ENV['SMTP_USERNAME'],
   password: ENV['SMTP_PASSWORD'],
   authentication: :login,
   enable_starttls_auto: true,
-  # openssl_verify_mode: none
+  openssl_verify_mode: OpenSSL::SSL::VERIFY_PEER, # Add this line
+  ssl_timeout: 30, # Increase as needed
+  open_timeout: 30, # Increase as needed
+  read_timeout: 30, # Increase as needed
+  connection_timeout: 30 # Increase as needed
 }
+
 
 
 

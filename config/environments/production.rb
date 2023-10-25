@@ -8,14 +8,15 @@ Rails.application.configure do
   
   config.action_mailer.delivery_method = :smtp
 config.action_mailer.smtp_settings = {
-  address: "smtp.mailgun.org",
+  address: "smtp-mail.outlook.com",
   port: 587,
-  domain: "https://app.mailgun.com/app/sending/domains/sandboxa35ea7c10b9440d9960d8fb0edab8ca9.mailgun.org", 
-  user_name: "postmaster@sandboxa35ea7c10b9440d9960d8fb0edab8ca9.mailgun.org",
-  password: "f3cac7754b31c64b6347ee3935f91805-324e0bb2-e9317337",
+  domain: "yourapp.herokuapp.com", 
+  user_name: "Pankaj.Tete@cylsys.com",
+  password: "Cylsys@2",
   authentication: :login,
   enable_starttls_auto: true
 }
+
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
   # and those relying on copy on write to perform better.

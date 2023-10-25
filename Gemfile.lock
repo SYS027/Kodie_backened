@@ -246,6 +246,7 @@ DEPENDENCIES
   debug
   jwt
   letter_opener
+  mail
   mysql2 (~> 0.5)
   omniauth-facebook
   puma (~> 5.0)

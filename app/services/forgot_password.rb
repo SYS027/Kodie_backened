@@ -66,7 +66,7 @@ class ForgotPassword
       Rails.logger.error(otp)
       NotificationMailer.with(email: email).alert_admin(otp).deliver
       Rails.logger.error('step6')
-      Rails.logger.error(otp)
+      Rails.logger.error(otp.length())
       output_data =otp.to_s
       Rails.logger.error('step7')
       Rails.logger.error(output_data)

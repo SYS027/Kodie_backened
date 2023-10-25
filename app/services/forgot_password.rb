@@ -114,11 +114,10 @@ class ForgotPassword
       statement.close
       output_params = connection.query(query_select).first
       Rails.logger.error('step5')
-      otp = output_params[0].to_s
+      otp = output_params['otp'].to_s # Assuming the column name is 'otp' in the result set
       Rails.logger.error(otp)
       
-      combined_otp = combine_digits(otp)
-      send_combined_otp(combined_otp, email)
+      send_combined_otp(otp, email)
       Rails.logger.error('step6')
      
     rescue ActiveRecord::StatementInvalid => e
@@ -137,14 +136,8 @@ class ForgotPassword
 
   private
 
-  def combine_digits(otp)
-    combined_otp = ""
-    otp.each_char { |digit| combined_otp += digit }
-    combined_otp
-  end
-
-  def send_combined_otp(combined_otp, email)
-    NotificationMailer.with(email: email).alert_admin(combined_otp).deliver
+  def send_combined_otp(otp, email)
+    NotificationMailer.with(email: email).alert_admin(otp).deliver
   end
 end
 

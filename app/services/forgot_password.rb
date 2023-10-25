@@ -88,6 +88,7 @@
 #   end
 # end
 
+
 class ForgotPassword
   def initialize(email)
     @email = email
@@ -114,7 +115,9 @@ class ForgotPassword
       statement.close
       output_params = connection.query(query_select).first
       Rails.logger.error('step5')
-      otp = output_params['otp'].to_s # Assuming the column name is 'otp' in the result set
+
+      # Ensure the 'otp' value is not nil and convert it to a string
+      otp = output_params['otp'].to_s if output_params['otp']
       Rails.logger.error(otp)
       
       send_combined_otp(otp, email)

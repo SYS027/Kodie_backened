@@ -23,7 +23,7 @@ class ForgotPasswordStepTwo
         message = output_params[0],
         generated_on = output_params[1]
         
-        output_data=[message,generated_on]
+        output_data=[message[0],generated_on]
        
     end
 end

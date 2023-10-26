@@ -25,8 +25,10 @@ class Api::V1::SessionController < ApplicationController
         email: email,
         exp: 1.hour.from_now.to_i
       }
-  
+      Rails.logger.error('step1')
        token = JwtService.generate_token(payload)
+       Rails.logger.error(user_id)
+       Rails.logger.error(user_id[0])
        setService= VerificationService.new(user_id[0],params[:email],token)
         setData=setService.sp_login_details
        response.headers['Authorization'] = "Bearer #{token}"
@@ -42,7 +44,7 @@ class Api::V1::SessionController < ApplicationController
     password = params[:password]
     session_service = ForgotPasswordStep3.new(email, password)
     result = session_service.sp_reset_password(email, password)
-    render json: {message: result}
+    render json: {message: result ,status: true}
   end
 end
 

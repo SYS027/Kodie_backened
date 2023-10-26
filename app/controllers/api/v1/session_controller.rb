@@ -27,12 +27,17 @@ class Api::V1::SessionController < ApplicationController
       }
       Rails.logger.error('step1')
        token = JwtService.generate_token(payload)
-       Rails.logger.error(user_id)
-       Rails.logger.error(user_id[0])
-       setService= VerificationService.new(user_id[0],params[:email],token)
+      Rails.logger.error(user_id)
+      #  Rails.logger.error(user_id[0])
+       if user_id[0] == "nil"
+        render json: { user_id: nil, message: result[1], status: false }
+       else
+        setService= VerificationService.new(user_id,params[:email],token)
         setData=setService.sp_login_details
        response.headers['Authorization'] = "Bearer #{token}"
-      render json: { user_id:user_id[0], token: token, message: result[1],email: params[:email], status: true }
+      render json: { user_id:user_id, token: token, message: result[1],email: params[:email], status: true }
+       end 
+       
     else
       render json: { user_id: nil, message: result[1], status: false }
     end

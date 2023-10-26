@@ -9,7 +9,6 @@ class SignupService
 
   def signup
     
-    # Execute the stored procedure using ActiveRecord
     result = ActiveRecord::Base.connection.execute("
       CALL USP_KODIE_INSERT_SIGNUP(
         '#{@email}',
@@ -18,9 +17,6 @@ class SignupService
         #{@is_privacy_policy ? 1 : 0}
       )
     ")
-
-
-   
   end
 
 end

@@ -19,7 +19,7 @@ class SessionService
       user_id = output_params[0],
       message = output_params[1]
     
-    output_data=[user_id,message]
+    output_data=[user_id[0],message]
     
    
   end

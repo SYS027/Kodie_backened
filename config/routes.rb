@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   namespace 'api' do
     namespace 'v1' do
       post 'signup', to: 'auth#signup'
+      post 'signup_verifyotp', to: 'auth#Signup_Check'
       post '/login', to: 'session#login'
       get '/logout', to: 'session#logout'
       post 'step1', to: 'step1#index'

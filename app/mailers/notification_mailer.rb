@@ -5,4 +5,5 @@ class NotificationMailer < ApplicationMailer
     @otp=otp
      mail(to: params[:email],subject: "ALERT From ADMIN")
     end    
+    
 end

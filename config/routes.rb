@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       post '/login', to: 'session#login'
       get '/logout', to: 'session#logout'
       post 'step1', to: 'step1#index'
-      post 'reset_password' , to: 'session#reset_password'
+      post 'reset_password' , to: 'reset_password#reset_password'
       post 'lookup/step1' , to: 'look#index'
       post 'current_user' , to: 'session#current_user'
       post 'reset_password1' , to: 'reset_password#step_1_reset_password'

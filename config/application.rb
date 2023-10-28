@@ -11,6 +11,7 @@ module KodieProcedure
     # Initialize configuration defaults for originally generated Rails version.
     config.action_mailer.default_url_options = { host: 'yourapp.herokuapp.com' }
     config.load_defaults 7.0
+    config.autoloader = :zeitwerk
 
     # Configuration for the application, engines, and railties goes here.
     #

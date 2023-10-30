@@ -7,9 +7,9 @@ class Api::V1::ResetPasswordController < ApplicationController
         Rails.logger.error(result)
        
         if result == "Email not verified"
-            render json: { otp: "Email is not Registered", status: false }
+            render json: { otp: "null", status: false,message: "Email is not Registered" }
           else
-            render json: { otp: result, status: true }
+            render json: { otp: result, status: true , message: "OTP Sended" }
           end
     end
 

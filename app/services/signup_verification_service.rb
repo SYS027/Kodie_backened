@@ -4,20 +4,29 @@ def initialize(email)
     @email =email
 end
 
-def sp_generate_verification_code(email)
-    connection = ActiveRecord::Base.connection.raw_connection
-    @out_otp= "000000"
-    sql ="CALL USP_KODIE_GENERATE_OTP(?,@out_otp);"
+	def sp_generate_verification_code(email)
+	connection = ActiveRecord::Base.connection.raw_connection
+	@out_otp="000000";
 
-    statement = connection.prepare(sql)
-    statement.execute(email)
-    query_select = "SELECT @out_otp AS otp;"
-    statement.close
+	sql = "CALL USP_KODIE_GENERATE_OTP(?, @out_otp);"
 
-    output_params = connection.query(query_select).first
-    otp = output_params[0]
-    NotificationMailer.with(email: email).alert_admin(otp).deliver
-    Rails.logger.error(otp)
-end
+
+	statement = connection.prepare(sql)
+	statement.execute(email)
+	statement.close
+ 
+
+	queryslect ="SELECT @out_otp AS otp;"
+	output_params = connection.query(queryslect).first
+	Rails.logger.error("SignupStep1")
+	Rails.logger.error(output_params)
+	Rails.logger.error("SignupStep2")
+    
+  end 
+
+	
+	
    
 end
+
+

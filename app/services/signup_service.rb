@@ -17,6 +17,12 @@ class SignupService
         #{@is_privacy_policy ? 1 : 0}
       )
     ")
+    output_data=result.to_a
+    output_data[0]
+    Rails.logger.error("step2")
+    Rails.logger.error(output_data[0])
+    Rails.logger.error("pankaj")
+    output_data[0]
   end
 
 end

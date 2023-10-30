@@ -4,28 +4,33 @@ class Api::V1::AuthController < ApplicationController
     password = params[:password]
     is_term_condition = params[:is_term_condition]
     is_privacy_policy = params[:is_privacy_policy]
-
+  
     signup_service = SignupService.new(
       email,
       password,
       is_term_condition,
       is_privacy_policy
     )
-
-    begin
-      signup_service.signup
-      Rails.logger.error("step1")
-      otp_service=SignupVerificationService.new(email)
+  
+    result = signup_service.signup
+    Rails.logger.error("step1")
+    
+  
+    Rails.logger.error("pankaj2")
+    if result == "Email id already exists"
+      Rails.logger.error("pankaj4")
+      render json: { message: 'User already exists', otp: "null", status: false }
+    else
+      Rails.logger.error("pankaj5")
+      otp_service = SignupVerificationService.new(email)
       Rails.logger.error("step4")
-      otp=otp_service.sp_generate_verification_code(email)
-      Rails.logger.error("step2") 
-      render json: { message: 'User signed up successfully' ,otp: otp,status: true}
-    rescue ActiveRecord::RecordNotUnique => e
-      render json: { error: 'User with this email already exists 1' , status: false}, status: :unprocessable_entity
-    rescue StandardError => e
-      render json: { error: 'User with this email already exists 2' , status: false }, status: :internal_server_error
+      otp = otp_service.sp_generate_verification_code(email)
+      Rails.logger.error("step2")
+      Rails.logger.error(otp)
+      render json: { message: 'User Successfully Signup', otp: otp, status: true }
     end
   end
+  
 
   def Signup_Check
     email = params[:email]

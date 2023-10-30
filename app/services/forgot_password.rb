@@ -1,40 +1,4 @@
-# class ForgotPassword
 
-#   def initialize(email)
-#     @email = email 
-#   end
-
-#   def sp_reset_1(email)
-#     begin
-#       connection = ActiveRecord::Base.connection.raw_connection
-#       @out_otp = 0
-#       sql = "CALL RESET_PASSWORD_(?, @out_otp);"
-#       Rails.logger.error('1')
-#       statement = connection.prepare(sql)
-#       statement.execute(email)
-#       statement.close
-#       Rails.logger.error('2')
-#       query_select = "SELECT @out_otp AS otp;"
-#       output_params = connection.query(query_select).first
-#       Rails.logger.error('3')
-#       otp = output_params[0]
-#       Rails.logger.error('4')
-#       Rails.logger.error(otp)
-#       NotificationMailer.with(email: email).alert_admin(otp).deliver
-#       Rails.logger.error('5')
-#       output_data = [otp]
-#     rescue StandardError => e
-     
-#       Rails.logger.error("Error in ForgotPassword#sp_reset_1: #{e.message}")
-#       output_data = nil
-#       Rails.logger.error({e.message})
-#     ensure
-#       connection.close if connection
-#     end
-
-#     output_data
-#   end
-# end
 class ForgotPassword
   def initialize(email)
     @email = email
@@ -46,9 +10,9 @@ class ForgotPassword
       @out_otp = "000000"
       sql = "CALL RESET_PASSWORD_(?, @out_otp);"
 
-
+      
       Rails.logger.error('step1')
-
+    
       statement = connection.prepare(sql)
       Rails.logger.error('step2')
       statement.execute(email)
@@ -71,15 +35,16 @@ class ForgotPassword
       output_data =otp.to_s
       Rails.logger.error('step7')
       Rails.logger.error(output_data)
+      output_data
      
     rescue ActiveRecord::StatementInvalid => e
       # Handle database statement execution error here
       puts "Database statement error: #{e.message}"
-      Rails.logger.error("Database statement error: #{e.message}")
+      Rails.logger.error("Database statement error: #{output_data}")
     rescue StandardError => e
       # Handle other exceptions here
       puts "An error occurred: #{e.message}"
-      Rails.logger.error("An error occurred: #{e.message}")
+      Rails.logger.error("An error occurred: #{output_data}")
       # NotificationMailer.alert_admin.deliver
     ensure
       output_data
@@ -87,9 +52,6 @@ class ForgotPassword
     end
   end
 end
-
-
-
 
 # class ForgotPassword
 #   def initialize(email)
@@ -100,13 +62,13 @@ end
 #     begin
 #       connection = ActiveRecord::Base.connection.raw_connection
 #       @out_otp = "000000"
-#       sql = "CALL RESET_PASSWORD_(?, @out_otp);"
+#       sql = "CALL RESET_PASSWORD_(?, ?);"
 
 #       Rails.logger.error('step1')
 
 #       statement = connection.prepare(sql)
 #       Rails.logger.error('step2')
-#       statement.execute(email)
+#       statement.execute(@email)
 #       Rails.logger.error('step3')
       
 #       Rails.logger.error('step4')
@@ -117,40 +79,36 @@ end
 #       statement.close
 #       output_params = connection.query(query_select).first
 #       Rails.logger.error('step5')
-#       otp = output_params[0].to_s
+#       otp = output_params['otp'].to_s
 #       Rails.logger.error(otp)
       
-#       iterate_and_store(otp)
+#       NotificationMailer.with(email: @email).alert_admin(otp).deliver
 #       Rails.logger.error('step6')
+#       Rails.logger.error(otp.length())
+#       output_data = otp
+#       Rails.logger.error('step7')
+#       Rails.logger.error(output_data)
+#       output_data
      
 #     rescue ActiveRecord::StatementInvalid => e
 #       # Handle database statement execution error here
 #       puts "Database statement error: #{e.message}"
 #       Rails.logger.error("Database statement error: #{e.message}")
+#       output_data = nil
 #     rescue StandardError => e
 #       # Handle other exceptions here
 #       puts "An error occurred: #{e.message}"
 #       Rails.logger.error("An error occurred: #{e.message}")
+#       output_data = nil
 #       # NotificationMailer.alert_admin.deliver
 #     ensure
 #       connection.close if connection
+#       output_data
 #     end
-#   end
-
-#   private
-
-#   def iterate_and_store(otp)
-#     stored_otp = ""
-#     otp.each_char do |digit|
-#       stored_otp += digit
-#     end
-
-#     # Now, `stored_otp` contains the OTP as a string
-#     Rails.logger.error('Stored OTP:', stored_otp)
-
-#     # If needed, you can use `stored_otp` in further processing or send it in an email
 #   end
 # end
+
+
 
 
 

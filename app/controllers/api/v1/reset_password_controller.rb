@@ -4,7 +4,13 @@ class Api::V1::ResetPasswordController < ApplicationController
         email = params[:email]
         session_service = ForgotPassword.new(email)
         result = session_service.sp_reset_1(email)
-        render json: { otp: result[0] , status: true }
+        Rails.logger.error(result)
+       
+        if result == "Email not verified"
+            render json: { otp: "Email is not Registered", status: false }
+          else
+            render json: { otp: result, status: true }
+          end
     end
 
     def step_2_reset_password

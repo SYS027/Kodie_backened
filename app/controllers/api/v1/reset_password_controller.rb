@@ -5,8 +5,14 @@ class Api::V1::ResetPasswordController < ApplicationController
         otp = rand(100_000..999_999)
         session_service = UspKodieResetPasswordStep1.new(email,otp)
         result = session_service.sp_reset_1(email)
+        Rails.logger.error("result")
         Rails.logger.error(result)
-        render json: { otp: result , status: true }
+        if result == -1
+
+            render json: { message: "User not Registered" , status: false }
+        else    
+        render json: { message: "OTP Sended Successfully" , status: true }
+        end
     end
 
     # def step_2_reset_password

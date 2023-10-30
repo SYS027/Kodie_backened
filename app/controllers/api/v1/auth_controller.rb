@@ -32,9 +32,9 @@ class Api::V1::AuthController < ApplicationController
     Rails.logger.error(result)
     
     if result == 1
-      render json: { message: 'OTP Verified', status: false }
+      render json: { message: 'OTP Verified', status: true }
     else
-      render json: { message: 'OTP Not Verified', status: true }
+      render json: { message: 'OTP Not Verified', status: false }
     end 
   end 
   private

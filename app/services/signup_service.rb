@@ -7,22 +7,24 @@ class SignupService
     @is_privacy_policy = is_privacy_policy
   end
 
-  def signup
+  def signup(email, password, is_term_condition, is_privacy_policy)
     
-    result = ActiveRecord::Base.connection.execute("
-      CALL USP_KODIE_INSERT_SIGNUP(
-        '#{@email}',
-        '#{@password}',
-        #{@is_term_condition ? 1 : 0},
-        #{@is_privacy_policy ? 1 : 0}
-      )
-    ")
-    output_data=result.to_a
-    output_data[0]
-    Rails.logger.error("step2")
-    Rails.logger.error(output_data[0])
-    Rails.logger.error("pankaj")
-    output_data[0]
+    connection = ActiveRecord::Base.connection.raw_connection
+    @out_message="0";
+    sql = "CALL USP_KODIE_INSERT_SIGNUP(?, ?, ?, ?,@out_message);"
+    statement = connection.prepare(sql)
+    statement.execute(email, password, is_term_condition, is_privacy_policy)
+    statement.close
+   
+    queryslect ="SELECT @out_message AS message;"
+    output_params = connection.query(queryslect).first
+    Rails.logger.error(output_params[0])
+    value=output_params[0]
+    Rails.logger.error("signup success")
+    Rails.logger.error(value)
+    value
+
+
   end
 
 end

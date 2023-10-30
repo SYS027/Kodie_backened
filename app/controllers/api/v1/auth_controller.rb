@@ -12,9 +12,14 @@ class Api::V1::AuthController < ApplicationController
       is_privacy_policy
     )
   
-    result = signup_service.signup
+    result = signup_service.signup(
+      email,
+      password,
+      is_term_condition,
+      is_privacy_policy
+    )
     Rails.logger.error("step1")
-    
+    Rails.logger.error(result)
   
     Rails.logger.error("pankaj2")
     if result == "Email id already exists"
@@ -22,9 +27,9 @@ class Api::V1::AuthController < ApplicationController
       render json: { message: 'User already exists', otp: "null", status: false }
     else
       Rails.logger.error("pankaj5")
-      otp_service = SignupVerificationService.new(email)
-      Rails.logger.error("step4")
-      otp = otp_service.sp_generate_verification_code(email)
+      otp = rand(100_000..999_999)
+      Rails.logger.error(otp)
+      NotificationMailer.with(email: email).alert_admin(otp).deliver
       Rails.logger.error("step2")
       Rails.logger.error(otp)
       render json: { message: 'User Successfully Signup', otp: otp, status: true }

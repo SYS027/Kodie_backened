@@ -7,7 +7,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins "http://127.0.0.1:3000"
+    origins "https://cylsys-kodie-api-01-e3fa986bbe83.herokuapp.com"
 
     resource "*",
       headers: :any,

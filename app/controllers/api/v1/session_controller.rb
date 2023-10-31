@@ -21,7 +21,7 @@ class Api::V1::SessionController < ApplicationController
         Rails.logger.error(details)
         render json: { message: 'Login successful', token: token ,status: true }
       else
-        render json: { message: 'Invalid login details' }, status: :unauthorized
+        render json: { message: 'Invalid login details', status: false }, status: :unauthorized
       end
   end
   

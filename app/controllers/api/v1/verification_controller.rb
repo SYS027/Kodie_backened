@@ -8,6 +8,7 @@ class Api::V1::VerificationController < ApplicationController
       physical_address: params[:physical_address],
       organisation_name: params[:organisation_name],
       referral_code: params[:referral_code],
+      profile_photo: params[:profile_photo],
 			describe_yourself: params[:describe_yourself],
 			property_manage: params[:property_manage],
 			kodie_help: params[:kodie_help]

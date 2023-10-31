@@ -1,75 +1,9 @@
-# openapi: 3.0.3
-# info:
-#   title: My API 
-#   version: 1.0.0
-# servers: 
-#   - url: https://cylsys-kodie-api-01-e3fa986bbe83.herokuapp.com/api/v1
-# paths:
-#   /auth/signup:
-#     post:
-#       summary: User Signup
-#       requestBody:
-#         required: true
-#         content:
-#           application/json:
-#             example:
-#               email: string
-#               password: string
-#               is_term_condition: boolean
-#               is_privacy_policy: boolean
-#       parameters:
-#         - name: email
-#           in: query
-#           description: The email address of the user
-#           required: true
-#           schema:
-#             type: string
-#             example: "test@example.com"
-#         - name: password
-#           in: query
-#           description: The password for the user
-#           required: true
-#           schema:
-#             type: string
-#             example: "securepassword"
-#         - name: is_term_condition
-#           in: query
-#           description: Whether the user agrees to terms and conditions
-#           required: true
-#           schema:
-#             type: boolean
-#             example: true
-#         - name: is_privacy_policy
-#           in: query
-#           description: Whether the user agrees to the privacy policy
-#           required: true
-#           schema:
-#             type: boolean
-#             example: true
-#       responses:
-#         '200':
-#           description: User Signup Successful
-#           content:
-#             application/json:
-#               example:
-#                 message: User Signup Successful
-#                 User_Key: string
-#                 status: true
-#         '409':
-#           description: User Already Exists
-#           content:
-#             application/json:
-#               example:
-#                 message: User Already Exists
-#                 status: false
-
-
 openapi: 3.0.3
 info:
   title: My API 
   version: 1.0.0
 servers: 
-  - url: https://cylsys-kodie-api-01-e3fa986bbe83.herokuapp.com/api/v1
+  - url: http://127.0.0.1:3000/api/v1
 paths:
   /signup:
     post:
@@ -109,3 +43,271 @@ paths:
               example:
                 message: User Already Exists
                 status: false
+  /signup_verifyotp:
+    post:
+      summary: Verify OTP for User Signup
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: "test@example.com"
+                otp:
+                  type: number
+                  example: 123456  # Adjust the example to match your expected format
+                is_term_condition:
+                  type: boolean
+                  example: true
+                is_privacy_policy:
+                  type: boolean
+                  example: true
+      responses:
+        '200':
+          description: OTP Verified
+          content:
+            application/json:
+              example:
+                message: OTP Verified
+                status: true
+        '409':
+          description: OTP Verification Failed
+          content:
+            application/json:
+              example:
+                message: OTP Not Verified
+                status: false
+  /Signup_account_details_save:
+    post:
+      summary: Save Account and Property Details
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                account_details:
+                  type: object
+                  properties:
+                    user:
+                      type: string
+                      example: "username"
+                    first_name:
+                      type: string
+                      example: "John"
+                    last_name:
+                      type: string
+                      example: "Doe"
+                    phone_number:
+                      type: string
+                      example: "1234567890"
+                    physical_address:
+                      type: string
+                      example: "123 Main St"
+                    organisation_name:
+                      type: string
+                      example: "ABC Corp"
+                    referral_code:
+                      type: string
+                      example: "REF123"
+                    describe_yourself:
+                      type: string
+                      example: "Description of yourself"
+                    property_manage:
+                      type: string
+                      example: "Yes"
+                    kodie_help:
+                      type: string
+                      example: "Yes"
+                property_details:
+                  type: object
+                  properties:
+                    location:
+                      type: string
+                      example: "City"
+                    location_longitude:
+                      type: number
+                      example: -74.0059
+                    location_latitude:
+                      type: number
+                      example: 40.7128
+                    islocation:
+                      type: boolean
+                      example: true
+                    property_description:
+                      type: string
+                      example: "Description of the property"
+                    property_type:
+                      type: string
+                      example: "Residential"
+                    key_features:
+                      type: string
+                      example: "Feature 1, Feature 2"
+                    additional_features:
+                      type: string
+                      example: "Additional Feature 1, Additional Feature 2"
+      responses:
+        '200':
+          description: Details Saved Successfully
+          content:
+            application/json:
+              example:
+                message: Details Saved Successfully
+  /login:
+    post:
+      summary: User Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: "test@example.com"
+                password:
+                  type: string
+                  example: "securepassword"
+      responses:
+        '200':
+          description: Login Successful
+          content:
+            application/json:
+              example:
+                message: Login successful
+                token: "your_generated_token"
+                status: true
+        '401':
+          description: Invalid Login Details
+          content:
+            application/json:
+              example:
+                message: Invalid login details
+                status: false
+  /step_1_reset_password:
+    post:
+      summary: Step 1 - Reset Password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: "test@example.com"
+      responses:
+        '200':
+          description: OTP Sent Successfully
+          content:
+            application/json:
+              example:
+                message: OTP Sent Successfully
+                status: true
+        '200':
+          description: User not Registered
+          content:
+            application/json:
+              example:
+                message: User not Registered
+                status: false
+  /signup_verifyotp:
+    post:
+      summary: Step 2 - Reset Password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: "test@example.com"
+                otp:
+                  type: number
+                  example: 123456  # Adjust the example to match your expected format
+                is_term_condition:
+                  type: boolean
+                  example: true
+                is_privacy_policy:
+                  type: boolean
+                  example: true
+      responses:
+        '200':
+          description: OTP Verified
+          content:
+            application/json:
+              example:
+                message: OTP Verified
+                status: true
+        '409':
+          description: OTP Verification Failed
+          content:
+            application/json:
+              example:
+                message: OTP Not Verified
+                status: false
+  /reset_password:
+    post:
+      summary: Reset Password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: "test@example.com"
+                password:
+                  type: string
+                  example: "newsecurepassword"
+      responses:
+        '200':
+          description: Password Successfully Updated
+          content:
+            application/json:
+              example:
+                message: Password Successfully Updated
+                status: true
+        '200':
+          description: Password Not Updated
+          content:
+            application/json:
+              example:
+                message: Password Not Updated
+                status: false
+  /lookup/step1:
+    post:
+      summary: Get LookUp Data
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                P_PARENT_CODE:
+                  type: string
+                  example: "parent_code_value"
+                P_TYPE:
+                  type: string
+                  example: "type_value"
+      responses:
+        '200':
+          description: LookUp Data Retrieved Successfully
+          content:
+            application/json:
+              example:
+                data: 
+                  - item1
+                  - item2
+                status: true

@@ -4,8 +4,10 @@ class Api::V1::SessionController < ApplicationController
   def login
       email = params[:email]
       password = params[:password]
-  
-      login_function_call = UspKodieLoginService.new(email, password)
+      Rails.logger.error(password)
+      updated_password=Base64.encode64(password)
+      Rails.logger.error(updated_password)
+      login_function_call = UspKodieLoginService.new(email, updated_password)
       result= login_function_call.USP_LOGIN_DETAILS
   
       if result == 1

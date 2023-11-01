@@ -1,5 +1,7 @@
 class Api::V1::AuthController < ApplicationController
  
+  
+
   def signup
    
     Rails.logger.error('Step1')
@@ -8,10 +10,12 @@ class Api::V1::AuthController < ApplicationController
       is_term_condition = params[:is_term_condition]
       is_privacy_policy = params[:is_privacy_policy]
       otp = rand(100_000..999_999)
-     
+      Rails.logger.error(password)
+      updated_password=Base64.encode64(password)
+      Rails.logger.error(updated_password)
      
       Rails.logger.error('Step1')
-      signup_function_call = UspKodieSignupService.new(email, password,is_term_condition,is_privacy_policy, otp)
+      signup_function_call = UspKodieSignupService.new(email, updated_password,is_term_condition,is_privacy_policy, otp)
       Rails.logger.error('Step1')
      
        result= signup_function_call.USP_KODIE_SIGNUP_DETAILS

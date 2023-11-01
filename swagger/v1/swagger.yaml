@@ -4,8 +4,9 @@ info:
   version: 1.0.0
 servers: 
   - url: https://cylsys-kodie-api-01-e3fa986bbe83.herokuapp.com/api/v1
+  # - url: http://127.0.0.1:3000/api/v1
 paths:
-  /signup:
+  /user_signup:
     post:
       summary: User Signup
       requestBody:
@@ -43,7 +44,7 @@ paths:
               example:
                 message: User Already Exists
                 status: false
-  /signup_verifyotp:
+  /user_signup_verifyotp:
     post:
       summary: Verify OTP for User Signup
       requestBody:
@@ -80,7 +81,7 @@ paths:
               example:
                 message: OTP Not Verified
                 status: false
-  /Signup_account_details_save:
+  /user_save_signup_account_details:
     post:
       summary: Save Account and Property Details
       requestBody:
@@ -114,6 +115,9 @@ paths:
                     referral_code:
                       type: string
                       example: "REF123"
+                    profile_photo:
+                      type: string
+                      example: "REF123"  
                     describe_yourself:
                       type: string
                       example: "Description of yourself"
@@ -157,7 +161,7 @@ paths:
             application/json:
               example:
                 message: Details Saved Successfully
-  /login:
+  /user_login:
     post:
       summary: User Login
       requestBody:
@@ -189,7 +193,7 @@ paths:
               example:
                 message: Invalid login details
                 status: false
-  /step_1_reset_password:
+  /user_reset_password_email_verify:
     post:
       summary: Step 1 - Reset Password
       requestBody:
@@ -217,7 +221,7 @@ paths:
               example:
                 message: User not Registered
                 status: false
-  /signup_verifyotp:
+  /user_signup_verifyotp:
     post:
       summary: Step 2 - Reset Password
       requestBody:
@@ -254,7 +258,7 @@ paths:
               example:
                 message: OTP Not Verified
                 status: false
-  /reset_password:
+  /user_reset_password:
     post:
       summary: Reset Password
       requestBody:
@@ -285,7 +289,7 @@ paths:
               example:
                 message: Password Not Updated
                 status: false
-  /lookup/step1:
+  /lookup_details:
     post:
       summary: Get LookUp Data
       requestBody:

@@ -4,17 +4,18 @@ Rails.application.routes.draw do
  
   namespace 'api' do
     namespace 'v1' do
-      post 'signup', to: 'auth#signup'
-      post 'signup_verifyotp', to: 'auth#Signup_Check'
-      post '/login', to: 'session#login'
-      get '/logout', to: 'session#logout'
-      post 'step1', to: 'step1#index'
-      post 'reset_password' , to: 'reset_password#reset_password'
-      post 'lookup/step1' , to: 'look#index'
-      post 'current_user' , to: 'session#current_user'
-      post 'reset_password1' , to: 'reset_password#step_1_reset_password'
-      post 'reset_password2' , to: 'reset_password#step_2_reset_password'
-      post 'Signup_account_details_save' , to: 'verification#create'
+      post 'user_signup', to: 'auth#signup'
+      post 'user_signup_verifyotp', to: 'auth#Signup_Check'
+      post 'user_login', to: 'session#login'
+      post 'user_reset_password' , to: 'reset_password#reset_password'
+      post 'lookup_details' , to: 'look#index'
+      post 'user_reset_password_email_verify' , to: 'reset_password#step_1_reset_password'      
+      post 'user_save_signup_account_details' , to: 'verification#create'
+
+      # post '/user_logout', to: 'session#logout'
+      # post 'step1', to: 'step1#index'
+      # post 'current_user' , to: 'session#current_user'
+      # post 'user_reset_password2' , to: 'reset_password#step_2_reset_password'
     end
   end
 end

@@ -11,9 +11,9 @@ Rails.application.routes.draw do
       post 'lookup_details' , to: 'look#index'
       post 'user_reset_password_email_verify' , to: 'reset_password#step_1_reset_password'      
       post 'user_save_signup_account_details' , to: 'verification#create'
-
+      post 'add_property_details', to: 'step1#index'
       # post '/user_logout', to: 'session#logout'
-      # post 'step1', to: 'step1#index'
+      
       # post 'current_user' , to: 'session#current_user'
       # post 'user_reset_password2' , to: 'reset_password#step_2_reset_password'
     end

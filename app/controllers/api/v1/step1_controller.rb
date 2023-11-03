@@ -25,4 +25,13 @@ class Api::V1::Step1Controller < ApplicationController
     Rails.logger.error(result) 
     render json: { message: result, status: true }
   end
+
+  def get_key_features
+    Rails.logger.error("Step1")
+    get_fetaures = UspKodieGetAllAdditionalFeatures.new
+    feature_result= get_fetaures.usp_get_additional_feature
+    Rails.logger.error("feature_result")
+    Rails.logger.error(feature_result)
+    render json: { PAF_KEY: feature_result, status: true }
+  end
 end

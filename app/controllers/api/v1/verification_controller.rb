@@ -10,12 +10,23 @@ class Api::V1::VerificationController < ApplicationController
     Rails.logger.error("temp_file_path")
     Rails.logger.error(@temp_file_path)
     Rails.logger.error("temp_file_path2")
+    @user = params[:user]
     @first_name = params[:first_name]
     @last_name = params[:last_name]
     @physical_address = params[:physical_address]
     @organisation_name = params[:organisation_name]
     @referral_code = params[:referral_code]
-
+    @describe_yourself = params[:describe_yourself]
+    @property_manage = params[:property_manage]
+    @kodie_help = params[:kodie_help]
+    @location =params[:location]
+    @location_longitude = params[:location_longitude]
+    @location_latitude =params[:location_latitude]
+    @islocation =params[:islocation]
+    @property_description =params[:property_description]
+    @property_type =params[:property_type]
+    @key_features =params[:key_features]
+    @additional_features =params[:additional_features]
     Rails.logger.error(@profile_photo)
     Rails.logger.error(@first_name)
     Rails.logger.error(@last_name)
@@ -26,20 +37,31 @@ class Api::V1::VerificationController < ApplicationController
 
   def account_details
     {
+      user: @user,
       first_name: @first_name,
       last_name: @last_name,
       physical_address: @physical_address,
       organisation_name: @organisation_name,
       referral_code: @referral_code,
-      profile_photo: @original_filename
+      profile_photo: @original_filename,
+      describe_yourself: @describe_yourself,
+      property_manage: @property_manage,
+      kodie_help: @kodie_help
+
     }
   end
 
   def property_details
     {
       location: @organisation_name,
-      location_longitude: @organisation_name
-      # Add other properties as needed
+      location_longitude: @organisation_name,
+      location_latitude: @location_longitude,
+      islocation: @islocation,
+      property_description: @property_description,
+      property_type: @property_type,
+      key_features: @key_features,
+      additional_features: @additional_features
+      
     }
   end
 

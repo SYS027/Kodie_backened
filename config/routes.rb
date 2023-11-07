@@ -14,10 +14,8 @@ Rails.application.routes.draw do
       post 'add_property_details', to: 'step1#index'
       get 'key_features', to: 'step1#get_key_features'
       post 'add_property_images', to: 'step1#add_property_images'
-      # post '/user_logout', to: 'session#logout'
-      
-      # post 'current_user' , to: 'session#current_user'
-      # post 'user_reset_password2' , to: 'reset_password#step_2_reset_password'
+      post 'add_property_video', to: 'step1#add_property_video'
+      post 'get_All_Property_details', to: 'step1#get_property_details'
     end
   end
 end

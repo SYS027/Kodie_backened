@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       post 'user_save_signup_account_details' , to: 'verification#create'
       post 'add_property_details', to: 'step1#index'
       get 'key_features', to: 'step1#get_key_features'
+      post 'add_property_images', to: 'step1#add_property_images'
       # post '/user_logout', to: 'session#logout'
       
       # post 'current_user' , to: 'session#current_user'

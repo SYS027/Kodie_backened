@@ -94,10 +94,10 @@ class Api::V1::VerificationController < ApplicationController
   private
 
   def save_profile_photo(file)
-    filename = File.basename(file.path)
-    local_path = Rails.root.join('public', 'images', filename)
+    filename = File.basename(file)
+    local_path = Rails.root.join('public', 'images', @original_filename)
 
-    FileUtils.cp(file.path, local_path)
+    FileUtils.cp(file, local_path)
   end
 
   def account_details_params

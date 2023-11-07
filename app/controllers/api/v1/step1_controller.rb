@@ -96,13 +96,32 @@ class Api::V1::Step1Controller < ApplicationController
   #   render json: { PAF_KEY: images_result, status: true }
   # end
 
-  def add_property_images
-    user = params[:user]
-    images_params = params[:images]
-    images_params = Array(images_params)
 
-    image_length = images_params.length
-    Rails.logger.error(image_length)
+  def your_action
+    files = params[:images]
+file_index = 0
+  Rails.logger.error(files.length)
+while file_index < files.length
+  file = files[file_index]
+
+  # Your logic for each uploaded file here...
+  # For example, you can access file.original_filename, file.tempfile, etc.
+  Rails.logger.error("Processing file: #{file.original_filename}")
+
+  file_index += 1
+end
+  end
+
+
+  def add_property_images
+    your_action()
+    Rails.logger.error("step1")
+    user = params[:user]
+    # images_params = params[:images]
+    # images_params = Array(images_params)
+
+    # image_length = images_params.length
+    # Rails.logger.error(image_length)
   
     profile_photo_path = Array(images_params)
     if profile_photo_path.present?
@@ -111,8 +130,7 @@ class Api::V1::Step1Controller < ApplicationController
     end
   
     Rails.logger.error("Processing images for user #{user}")
-    # Rails.logger.error(images_params[0])
-    # Rails.logger.error(images_params[1])
+    
   
     if images_params.is_a?(Array)
       images_params = images_params.map { |image| { images_type: image[:images_type], images_name: image[:images_name], images_path: image[:images_path] } }

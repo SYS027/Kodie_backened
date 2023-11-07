@@ -23,14 +23,19 @@ class UspKodieSignupService
       @otp
     )
  
-    NotificationMailer.with(email: @email).alert_admin(@otp).deliver
+    
     Rails.logger.error('Step2')
     Rails.logger.error(result.to_a)
     value = result.to_a.flatten.first
     Rails.logger.error(value)
- 
+   
     statement.close
- 
+    otp=@otp;
+    Rails.logger.error(otp)
+    email=@email;
+    Rails.logger.error(email)
+    email
+    otp
     value
   end
 end

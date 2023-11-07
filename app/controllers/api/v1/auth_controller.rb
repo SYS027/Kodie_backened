@@ -21,10 +21,15 @@ class Api::V1::AuthController < ApplicationController
        result= signup_function_call.USP_KODIE_SIGNUP_DETAILS
        Rails.logger.error("result")
        Rails.logger.error(result)
-       if result === -1
-        render json: { message: 'User Already Exists', status: false }
+       Rails.logger.error(otp)
+       if result == -1
+        NotificationMailer.with(email: email).alert_admin(otp).deliver
+        render json: { message: 'User Already Exists But Not Verified', otp: otp,status: true }
+      elsif result == -2
+        render json: { message: 'User Already Exists And Verified', status: true }
       else
-        render json: { message: 'User Signup Successfull', User_Key: result, status: true }
+        NotificationMailer.with(email: email).alert_admin(otp).deliver
+        render json: { message: 'User Signup Successful', User_Key: result, otp: otp,status: true }
       end
  
   end

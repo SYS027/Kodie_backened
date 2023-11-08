@@ -23,7 +23,7 @@ class Api::V1::Step1Controller < ApplicationController
     result= step1_service.create_post_with_tags
 
     Rails.logger.error(result) 
-    render json: { message: result, status: true }
+    render json: { property_id: result, message: "Property Add Successfully" ,status: true }
   end
 
   def get_key_features
@@ -38,61 +38,50 @@ class Api::V1::Step1Controller < ApplicationController
   def add_property_images
     Rails.logger.error("Step 1")
     user = params[:user]
-    images_params = Array(params[:images])
-  
-    if images_params.present?
-      images_params.each do |image_param|
-        content_type = image_param.content_type
-        filename = image_param.original_filename
-        temp_file_path = image_param.tempfile.path
-  
-        Rails.logger.error("Processing image: #{filename}")
-        Rails.logger.error("Temp file path: #{temp_file_path}")
-  
-        
-        @original = filename
-        save_profile_photo(temp_file_path)
-  
-        result = UspKodieAddPropertyImages.new(user, content_type, filename, temp_file_path)
-        result_data = result.save_property_images
-  
-        Rails.logger.error("Result for image #{filename}: #{result_data}")
-      end
-  
-      render json: { message: "Data Successfully Stored for #{images_params.length} images", status: true }
-    else
-      render json: { message: "No images provided", status: false }
+    
+    params[:images].each do  |image_param| 
+      content_type = image_param.content_type
+      filename = image_param.original_filename
+      temp_file_path = image_param.tempfile.path
+
+      Rails.logger.error("Processing image: #{filename}")
+      Rails.logger.error("Temp file path: #{temp_file_path}")
+
+      
+      @original = filename
+      save_profile_photo(temp_file_path)
+
+      result = UspKodieAddPropertyImages.new(user, content_type, filename, temp_file_path)
+      result_data = result.save_property_images
+
+      Rails.logger.error("Result for image #{filename}: #{result_data}")
     end
+    render json: { message: "Data Successfully Stored for images", status: true }
+    
+   
   end
 
   def add_property_video
     Rails.logger.error(" Video Step 1")
     user = params[:user]
-    images_params = Array(params[:video])
-  
-    if images_params.present?
-      images_params.each do |image_param|
-        content_type = image_param.content_type
-        filename = image_param.original_filename
-        temp_file_path = image_param.tempfile.path
-  
-        Rails.logger.error("Processing image: #{filename}")
-        Rails.logger.error("Temp file path: #{temp_file_path}")
-  
-        
-        @original = filename
-        save_profile_photo(temp_file_path)
-  
-        result = UspKodieAddPropertyVideo.new(user, content_type, filename, temp_file_path)
-        result_data = result.save_property_video
-  
-        Rails.logger.error("Result for image #{filename}: #{result_data}")
-      end
-  
-      render json: { message: "Data Successfully Stored for #{images_params.length} video", status: true }
-    else
-      render json: { message: "No video provided", status: false }
+    
+    params[:video].each do  |image_param| 
+      content_type = image_param.content_type
+      filename = image_param.original_filename
+      temp_file_path = image_param.tempfile.path
+
+      Rails.logger.error("Processing image: #{filename}")
+      Rails.logger.error("Temp file path: #{temp_file_path}")
+
+      
+      @original = filename
+      save_profile_photo(temp_file_path)
+
+      result = UspKodieAddPropertyVideo.new(user, content_type, filename, temp_file_path)
+      result_data = result.save_property_video
     end
+      
+      render json: { message: "Data Successfully Stored for Video", status: true }
   end
   
   def get_property_details
@@ -102,11 +91,11 @@ class Api::V1::Step1Controller < ApplicationController
   
      result = UspKodieGetAllPropertyDetailsReview.new(user)
      result_data = result.get_all_details
-   
+     Rails.logger.error("result_data")
      Rails.logger.error(result_data)
   
 
-    render json: { message: "get Successfully Stored for #{result_data} video", status: true }
+    render json: { property_details: result_data , status: true }
 
   end
 

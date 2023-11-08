@@ -4,9 +4,7 @@ class Api::V1::VerificationController < ApplicationController
    
   def profile_photo
     @profile_photo = params[:profile_photo]
-    content_type =  @profile_photo.content_type
-    @original_filename =  @profile_photo.original_filename
-    @temp_file_path =  @profile_photo.tempfile.path
+    
     Rails.logger.error("temp_file_path")
     Rails.logger.error(@temp_file_path)
     Rails.logger.error("temp_file_path2")
@@ -73,23 +71,28 @@ class Api::V1::VerificationController < ApplicationController
     
     Rails.logger.error("2")
     Rails.logger.error("2")
-
-    
-
+  
     profile_photo_path = params[:profile_photo]
     if profile_photo_path.present?
+      content_type =  @profile_photo.content_type
+    @original_filename =  @profile_photo.original_filename
+    @temp_file_path =  @profile_photo.tempfile.path
       save_profile_photo(profile_photo_path.tempfile)
       account_details['profile_photo'] = profile_photo_path.original_filename
+    else
+      render json: { message: "Profile photo is required", status: false }
+      return
     end
-
+  
     result = UspKodieSaveStepsJsonData.new(account_details, property_details)
     result_data = result.create_post_with_tags
-
+  
     Rails.logger.error("result")
     Rails.logger.error(result_data)
-
-    render json: { message: "Data Successfully Stored", status: true }
+  
+    render json: { message: "Data Successfully Stored", profile_photo_path: @temp_file_path, profile_photo_name: @original_filename, status: true }
   end
+  
 
   private
 

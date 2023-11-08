@@ -11,12 +11,12 @@ class UspKodieAddPropertyImages
     Rails.logger.error("Processing images for user #{@images_type}")
     Rails.logger.error("Processing images for user #{@images_name}")
     Rails.logger.error("Processing images for user #{@images_path}")
-    connection = ActiveRecord::Base.connection.raw_connection
-    result = connection.query("CALL USP_KODIE_SAVE_PROPERTY_IMAGES('#{@user}', '#{@images_type}', '#{@images_name}', '#{@images_path}')")
-
-    connection.close
-    Rails.logger.error("step4")
-    Rails.logger.error(result)
-    result
+    ActiveRecord::Base.connection_pool.with_connection do |connection|
+      result = connection.query("CALL USP_KODIE_SAVE_PROPERTY_IMAGES('#{@user}', '#{@images_type}', '#{@images_name}', '#{@images_path}')")
+      Rails.logger.error("step4")
+      Rails.logger.error(result)
+      result
+    end
+     
   end
 end

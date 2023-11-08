@@ -12,19 +12,28 @@ class UspKodieGetAllPropertyDetailsReview
 
     connection.close
     Rails.logger.error("step4")
-    Rails.logger.error(result)
-    Rails.logger.error(result.to_a) 
-    value = result.to_a
-    Rails.logger.error("step5")
-    Rails.logger.error(value[0])
-    get=value[0]
-    Rails.logger.error("step6")
-    Rails.logger.error(get[0])
-    Rails.logger.error("step8")
-    
-    Rails.logger.error(value)
-
-    value
+    Rails.logger.error(result.to_a)
+    results = []
+    result.each do |row|
+      results << row
+    end
+    process_data(results)
    end 
-
+    
+ 
+   private
+  
+    def process_data(results)
+      processed_data = results.map do |row|
+        {
+          image_path: row[0],
+          location: row[1],
+          property_description: row[2],
+          property_type: row[3],
+          key_features: row[4],
+          additional_features: row[5]
+        }
+      end
+      processed_data
+    end
 end

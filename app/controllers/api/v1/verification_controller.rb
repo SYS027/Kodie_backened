@@ -68,16 +68,22 @@ class Api::V1::VerificationController < ApplicationController
     Rails.logger.error("2")
     Rails.logger.error(@first_name)
     Rails.logger.error(@last_name)
-    
+  
     Rails.logger.error("2")
     Rails.logger.error("2")
   
     profile_photo_path = params[:profile_photo]
     if profile_photo_path.present?
       content_type =  @profile_photo.content_type
-    @original_filename =  @profile_photo.original_filename
-    @temp_file_path =  @profile_photo.tempfile.path
+      @original_filename =  @profile_photo.original_filename
+      @temp_file_path =  @profile_photo.tempfile.path
+  
+      # Save the profile photo
       save_profile_photo(profile_photo_path.tempfile)
+  
+      # Read and process the saved file
+      process_saved_file
+  
       account_details['profile_photo'] = profile_photo_path.original_filename
     else
       render json: { message: "Profile photo is required", status: false }
@@ -90,18 +96,35 @@ class Api::V1::VerificationController < ApplicationController
     Rails.logger.error("result")
     Rails.logger.error(result_data)
   
-    render json: { message: "Data Successfully Stored", profile_photo_path: @temp_file_path, profile_photo_name: @original_filename, status: true }
+    # Construct the URL based on how your web server serves static assets
+    file_url = "#{request.protocol}#{request.host_with_port}/images/#{@original_filename}"
+  
+    render json: { message: "Data Successfully Stored", profile_photo_path: file_url, profile_photo_name: @original_filename, status: true }
   end
   
-
   private
-
+  
   def save_profile_photo(file)
     filename = File.basename(file)
     local_path = Rails.root.join('public', 'images', @original_filename)
-
+    @full_path = local_path
     FileUtils.cp(file, local_path)
   end
+  
+  def process_saved_file
+    # Open the saved file for processing
+    saved_file_path = Rails.root.join('public', 'images', @original_filename)
+    @saved_file = saved_file_path
+    Rails.logger.error("saved_file_path")
+    Rails.logger.error(saved_file_path)
+    File.open(saved_file_path, 'r') do |file|
+      file_content = file.read
+      Rails.logger.error("File content:")
+      Rails.logger.error(file_content)
+    end
+  end
+  
+  
 
   def account_details_params
     params[:account_details].present? ? JSON.parse(params[:account_details]) : {}

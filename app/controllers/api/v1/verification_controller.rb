@@ -78,10 +78,9 @@ class Api::V1::VerificationController < ApplicationController
       @original_filename =  @profile_photo.original_filename
       @temp_file_path =  @profile_photo.tempfile.path
   
-      # Save the profile photo
+     
       save_profile_photo(profile_photo_path.tempfile)
-  
-      # Read and process the saved file
+ 
       process_saved_file
   
       account_details['profile_photo'] = profile_photo_path.original_filename
@@ -96,7 +95,7 @@ class Api::V1::VerificationController < ApplicationController
     Rails.logger.error("result")
     Rails.logger.error(result_data)
   
-    # Construct the URL based on how your web server serves static assets
+   
     file_url = "#{request.protocol}#{request.host_with_port}/images/#{@original_filename}"
   
     render json: { message: "Data Successfully Stored", profile_photo_path: file_url, profile_photo_name: @original_filename, status: true }
@@ -112,7 +111,7 @@ class Api::V1::VerificationController < ApplicationController
   end
   
   def process_saved_file
-    # Open the saved file for processing
+   
     saved_file_path = Rails.root.join('public', 'images', @original_filename)
     @saved_file = saved_file_path
     Rails.logger.error("saved_file_path")

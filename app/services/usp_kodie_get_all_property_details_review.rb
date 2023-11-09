@@ -9,11 +9,11 @@ class UspKodieGetAllPropertyDetailsReview
     Rails.logger.error(@user)
     connection = ActiveRecord::Base.connection.raw_connection
     result = connection.query("CALL USP_KODIE_GET_PROPERTY_DETAILS('#{@user}')")
-    result1 = connection.query("CALL USP_KODIE_GETALL_IMAGE_PATH_USING_ID('#{@user}')")
+    
     connection.close
     Rails.logger.error("step4")
     Rails.logger.error(result.to_a)
-    Rails.logger.error(result1.to_a)
+   
     results = []
     result.each do |row|
       results << row

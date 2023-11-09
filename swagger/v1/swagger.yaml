@@ -1,10 +1,10 @@
 openapi: 3.0.3
 info:
-  title: My API 
+  title: My API
   version: 1.0.0
-servers: 
-  - url: https://cylsys-kodie-api-01-e3fa986bbe83.herokuapp.com/api/v1
-  # - url: http://127.0.0.1:3000/api/v1
+servers:
+   - url: https://cylsys-kodie-api-01-e3fa986bbe83.herokuapp.com/api/v1
+  #  - url: http://127.0.0.1:3000/api/v1
 paths:
   /user_signup:
     post:
@@ -311,7 +311,154 @@ paths:
           content:
             application/json:
               example:
-                data: 
+                data:
                   - item1
                   - item2
+                status: true
+  /key_features:
+    get:
+      summary: 'Get Key Features Endpoint'
+      description: 'Endpoint to retrieve key features'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              example:
+                PAF_KEY: "your_key_value"
+                status: true
+  /add_property_details:
+    post:
+      summary: Property Details Endpoint
+      description: Endpoint to save property details
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: string
+                  example: "username"
+                user_account_details_id:
+                  type: string
+                  example: "user_account_details_id_value"
+                location:
+                  type: string
+                  example: "City"
+                location_longitude:
+                  type: number
+                  example: -74.0059
+                location_latitude:
+                  type: number
+                  example: 40.7128
+                islocation:
+                  type: boolean
+                  example: true
+                property_description:
+                  type: string
+                  example: "Description of the property"
+                property_type:
+                  type: string
+                  example: "Residential"
+                key_features:
+                  type: string
+                  example: "Feature 1, Feature 2"
+                additional_features:
+                  type: string
+                  example: "Additional Feature 1, Additional Feature 2"
+                additional_key_features:
+                  type: string
+                  example: "Additional Key Feature 1, Additional Key Feature 2"
+                autolist:
+                  type: string
+                  example: "AutoList Value"
+      responses:
+        '200':
+          description: Property Added Successfully
+          content:
+            application/json:
+              example:
+                property_id: "your_property_id"
+                message: "Property Add Successfully"
+                status: true
+  /add_property_images:
+    post:
+      summary: Add Property Images
+      description: Endpoint to add property images
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: string
+                  example: "username"
+                images:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      responses:
+        '200':
+          description: Images Added Successfully
+          content:
+            application/json:
+              example:
+                message: "Data Successfully Stored for images"
+                profile_photo_path: "http://your-api-base-url.com/images/filename.jpg"
+                profile_photo_name: "filename.jpg"
+                status: true
+  /add_property_video:
+    post:
+      summary: Add Property Video
+      description: Endpoint to add property video
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: string
+                  example: "username"
+                video:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      responses:
+        '200':
+          description: Video Added Successfully
+          content:
+            application/json:
+              example:
+                message: "Data Successfully Stored for Video"
+                status: true
+  /get_property_details_by_id:
+    post:
+      summary: Get Property Details by User ID
+      description: Endpoint to retrieve property details by user ID
+      parameters:
+        - name: user
+          in: query
+          required: true
+          schema:
+            type: string
+          example: "username"
+      responses:
+        '200':
+          description: Property Details Retrieved Successfully
+          content:
+            application/json:
+              example:
+                property_details:
+                  - detail1
+                  - detail2
                 status: true

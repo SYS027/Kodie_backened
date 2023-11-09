@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       post 'add_property_images', to: 'step1#add_property_images'
       post 'add_property_video', to: 'step1#add_property_video'
       post 'get_All_Property_details', to: 'step1#get_property_details'
+      post 'get_property_details_by_id', to: 'property#get_property_details_by_id'
     end
   end
 end

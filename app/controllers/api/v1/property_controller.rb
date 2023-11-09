@@ -5,7 +5,7 @@ class Api::V1::PropertyController < ApplicationController
         Rails.logger.error(user)
      
          result = UspKodieGetPropertyDetailsByUserId.new(user)
-         result_data = result.get_property_details
+         result_data = result.get_property_details(request)
          Rails.logger.error("result_data")
          Rails.logger.error(result_data)
      

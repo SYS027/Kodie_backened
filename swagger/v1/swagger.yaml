@@ -4,7 +4,7 @@ info:
   version: 1.0.0
 servers: 
    - url: https://cylsys-kodie-api-01-e3fa986bbe83.herokuapp.com/api/v1
-   #- url: http://127.0.0.1:3000/api/v1
+  #  - url: http://127.0.0.1:3000/api/v1
 paths:
   /user_signup:
     post:
@@ -315,7 +315,7 @@ paths:
                   - item1
                   - item2
                 status: true
-  /get_key_features:
+  /key_features:
     get:
       summary: 'Get Key Features Endpoint'
       description: 'Endpoint to retrieve key features'
@@ -384,4 +384,81 @@ paths:
               example:
                 property_id: "your_property_id"
                 message: "Property Add Successfully"
+                status: true
+  /add_property_images:
+    post:
+      summary: Add Property Images
+      description: Endpoint to add property images
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: string
+                  example: "username"
+                images:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      responses:
+        '200':
+          description: Images Added Successfully
+          content:
+            application/json:
+              example:
+                message: "Data Successfully Stored for images"
+                profile_photo_path: "http://your-api-base-url.com/images/filename.jpg"
+                profile_photo_name: "filename.jpg"
+                status: true
+  /add_property_video:
+    post:
+      summary: Add Property Video
+      description: Endpoint to add property video
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: string
+                  example: "username"
+                video:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      responses:
+        '200':
+          description: Video Added Successfully
+          content:
+            application/json:
+              example:
+                message: "Data Successfully Stored for Video"
+                status: true
+  /get_property_details_by_id:
+    post:
+      summary: Get Property Details by User ID
+      description: Endpoint to retrieve property details by user ID
+      parameters:
+        - name: user
+          in: query
+          required: true
+          schema:
+            type: string
+          example: "username"
+      responses:
+        '200':
+          description: Property Details Retrieved Successfully
+          content:
+            application/json:
+              example:
+                property_details:
+                  - detail1
+                  - detail2
                 status: true

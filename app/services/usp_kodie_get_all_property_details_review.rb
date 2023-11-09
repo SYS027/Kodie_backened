@@ -27,12 +27,14 @@ class UspKodieGetAllPropertyDetailsReview
     def process_data(results)
       processed_data = results.map do |row|
         {
-          image_path: row[0],
-          location: row[1],
-          property_description: row[2],
-          property_type: row[3],
-          key_features: row[4],
-          additional_features: row[5]
+         
+          location: row[0],
+          property_description: row[1],
+          property_type: row[2],
+          key_features: row[3],
+          additional_features: row[4],
+          additional_key_features: row[5],
+          image_path: row[6]
         }
       end
       processed_data

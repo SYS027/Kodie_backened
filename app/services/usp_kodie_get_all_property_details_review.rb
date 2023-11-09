@@ -36,7 +36,7 @@ class UspKodieGetAllPropertyDetailsReview
         key_features: row[3],
         additional_features: row[4],
         additional_key_features: row[5],
-        image_path: "#{request.protocol}#{request.host_with_port}/images/#{row[6]}"
+        image_path: row[6].nil? ? nil : "#{request.protocol}#{request.host_with_port}/images/#{row[6]}"
       }
     end
     processed_data

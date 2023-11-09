@@ -76,15 +76,17 @@ class Api::V1::Step1Controller < ApplicationController
       Rails.logger.error("Temp file path: #{temp_file_path}")
    
       @original = filename
-      save_profile_photo(temp_file_path)
+      save_profile_photo(image_param.tempfile.path)
+ 
+      process_saved_file
    
       result = UspKodieAddPropertyImages.new(user, content_type, filename, temp_file_path)
       result_data = result.save_property_images
-   
-      Rails.logger.error("Result for image #{filename}: #{result_data}")
+      file_url = "#{request.protocol}#{request.host_with_port}/images/#{@original}"
+     
     end
    
-    render json: { message: "Data Successfully Stored for images", status: true }
+    render json: { message: "Data Successfully Stored for images", profile_photo_path: file_url, profile_photo_name: @original, status: true }
   end
    
   def add_property_video
@@ -125,16 +127,26 @@ class Api::V1::Step1Controller < ApplicationController
 
   end
 
-
   private
   
   def save_profile_photo(file)
     filename = File.basename(file)
-    Rails.logger.error(@original)
-    
     local_path = Rails.root.join('public', 'images', @original)
-  
+    @full_path = local_path
     FileUtils.cp(file, local_path)
+  end
+  
+  def process_saved_file
+   
+    saved_file_path = Rails.root.join('public', 'images', @original)
+    @saved_file = saved_file_path
+    Rails.logger.error("saved_file_path")
+    Rails.logger.error(saved_file_path)
+    File.open(saved_file_path, 'r') do |file|
+      file_content = file.read
+      Rails.logger.error("File content:")
+      Rails.logger.error(file_content)
+    end
   end
     
 

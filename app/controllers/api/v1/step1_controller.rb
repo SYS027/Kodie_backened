@@ -39,7 +39,7 @@ class Api::V1::Step1Controller < ApplicationController
     Rails.logger.error("Step 1")
     user = params[:user]
     
-    Array(params[:images]).each do  |image_param| 
+    params[:images][:image].each do  |image_param| 
       content_type = image_param.content_type
       filename = image_param.original_filename
       temp_file_path = image_param.tempfile.path
@@ -60,10 +60,9 @@ class Api::V1::Step1Controller < ApplicationController
     
    
   end
-
+ 
   
-  
-
+   
   def add_property_video
     Rails.logger.error(" Video Step 1")
     user = params[:user]

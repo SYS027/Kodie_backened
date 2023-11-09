@@ -19,8 +19,9 @@ class Api::V1::ResetPasswordController < ApplicationController
     def reset_password
         email = params[:email]
         password = params[:password]
-        session_service = UspKodieResetPasswordStep3.new(email, password)
-        result = session_service.sp_reset_password(email, password)
+        updated_password=Base64.encode64(password)
+        session_service = UspKodieResetPasswordStep3.new(email, updated_password)
+        result = session_service.sp_reset_password(email, updated_password)
         Rails.logger.error(result)
         if result == 1
             render json: {message: "Password Successfully Updated" ,status: true}

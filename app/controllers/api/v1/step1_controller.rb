@@ -35,62 +35,33 @@ class Api::V1::Step1Controller < ApplicationController
     render json: { PAF_KEY: feature_result, status: true }
   end
 
-  # def add_property_images
-  #   Rails.logger.error("Step 1")
-  #   user = params[:user]
-    
-  #   params[:images].each do  |image_param| 
-  #     content_type = image_param.content_type
-  #     filename = image_param.original_filename
-  #     temp_file_path = image_param.tempfile.path
-
-  #     Rails.logger.error("Processing image: #{filename}")
-  #     Rails.logger.error("Temp file path: #{temp_file_path}")
-
-      
-  #     @original = filename
-  #     save_profile_photo(temp_file_path)
-
-  #     result = UspKodieAddPropertyImages.new(user, content_type, filename, temp_file_path)
-  #     result_data = result.save_property_images
-
-  #     Rails.logger.error("Result for image #{filename}: #{result_data}")
-  #   end
-  #   render json: { message: "Data Successfully Stored for images", status: true }
-    
-   
-  # end
-
   def add_property_images
     Rails.logger.error("Step 1")
     user = params[:user]
-  
-    images = params[:images]
-  
-    if images.nil? || !images.is_a?(Array)
-      render json: { message: "No images provided or invalid image format", status: false }
-      return
-    end
-  
-    images.each do |image_param|
+    
+    params[:images].each do  |image_param| 
       content_type = image_param.content_type
       filename = image_param.original_filename
       temp_file_path = image_param.tempfile.path
-  
+
       Rails.logger.error("Processing image: #{filename}")
       Rails.logger.error("Temp file path: #{temp_file_path}")
-  
+
+      
       @original = filename
       save_profile_photo(temp_file_path)
-  
+
       result = UspKodieAddPropertyImages.new(user, content_type, filename, temp_file_path)
       result_data = result.save_property_images
-  
+
       Rails.logger.error("Result for image #{filename}: #{result_data}")
     end
-  
     render json: { message: "Data Successfully Stored for images", status: true }
+    
+   
   end
+
+  
   
 
   def add_property_video

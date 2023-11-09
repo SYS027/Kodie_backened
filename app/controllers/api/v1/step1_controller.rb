@@ -118,7 +118,7 @@ class Api::V1::Step1Controller < ApplicationController
     Rails.logger.error(user)
   
      result = UspKodieGetAllPropertyDetailsReview.new(user)
-     result_data = result.get_all_details
+     result_data = result.get_all_details(request)
      Rails.logger.error("result_data")
      Rails.logger.error(result_data)
   

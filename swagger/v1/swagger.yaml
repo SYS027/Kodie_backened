@@ -3,8 +3,8 @@ info:
   title: My API 
   version: 1.0.0
 servers: 
-  - url: https://cylsys-kodie-api-01-e3fa986bbe83.herokuapp.com/api/v1
-  # - url: http://127.0.0.1:3000/api/v1
+   - url: https://cylsys-kodie-api-01-e3fa986bbe83.herokuapp.com/api/v1
+   #- url: http://127.0.0.1:3000/api/v1
 paths:
   /user_signup:
     post:
@@ -314,4 +314,74 @@ paths:
                 data: 
                   - item1
                   - item2
+                status: true
+  /get_key_features:
+    get:
+      summary: 'Get Key Features Endpoint'
+      description: 'Endpoint to retrieve key features'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              example:
+                PAF_KEY: "your_key_value"
+                status: true
+  /add_property_details:
+    post:
+      summary: Property Details Endpoint
+      description: Endpoint to save property details
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: string
+                  example: "username"
+                user_account_details_id:
+                  type: string
+                  example: "user_account_details_id_value"
+                location:
+                  type: string
+                  example: "City"
+                location_longitude:
+                  type: number
+                  example: -74.0059
+                location_latitude:
+                  type: number
+                  example: 40.7128
+                islocation:
+                  type: boolean
+                  example: true
+                property_description:
+                  type: string
+                  example: "Description of the property"
+                property_type:
+                  type: string
+                  example: "Residential"
+                key_features:
+                  type: string
+                  example: "Feature 1, Feature 2"
+                additional_features:
+                  type: string
+                  example: "Additional Feature 1, Additional Feature 2"
+                additional_key_features:
+                  type: string
+                  example: "Additional Key Feature 1, Additional Key Feature 2"
+                autolist:
+                  type: string
+                  example: "AutoList Value"
+      responses:
+        '200':
+          description: Property Added Successfully
+          content:
+            application/json:
+              example:
+                property_id: "your_property_id"
+                message: "Property Add Successfully"
                 status: true

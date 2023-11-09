@@ -29,7 +29,7 @@ class UspKodieGetPropertyDetailsByUserId
   def process_data(results, request)
     processed_data = results.map do |row|
       {
-        image_path: "#{request.protocol}#{request.host_with_port}/images/#{row[0]}",
+        image_path: row[0].nil? ? nil : "#{request.protocol}#{request.host_with_port}/images/#{row[0]}",
         location: row[2],
         property_type: row[1],
       }

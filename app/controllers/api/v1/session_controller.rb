@@ -9,8 +9,13 @@ class Api::V1::SessionController < ApplicationController
       Rails.logger.error(updated_password)
       login_function_call = UspKodieLoginService.new(email, updated_password)
       result= login_function_call.USP_LOGIN_DETAILS
-  
-      if result == 1
+      Rails.logger.error("result")
+      Rails.logger.error(result)
+      if result == 0
+
+        render json: { message: 'Invalid login details', status: false }, status: :unauthorized
+       
+      else
         payload = {
           email: email,
           exp: 1.hour.from_now.to_i
@@ -18,12 +23,10 @@ class Api::V1::SessionController < ApplicationController
         token=JwtService.generate_token(payload)
         Rails.logger.error(token)
         response.headers['Authorization'] = "Bearer #{token}"
-        result=UspKodieSetLoginDetailsService.new(email,token,"1","1")
+        result=UspKodieSetLoginDetailsService.new(result,email,token,"1","1")
         details= result.sp_login_details
         Rails.logger.error(details)
-        render json: { message: 'Login successful', token: token ,status: true }
-      else
-        render json: { message: 'Invalid login details', status: false }, status: :unauthorized
+        render json: { message: 'Login successful' ,Login_details: result , details: details ,status: true }
       end
   end
   

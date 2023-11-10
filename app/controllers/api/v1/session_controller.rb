@@ -1,4 +1,4 @@
-# app/controllers/sessions_controller.rb
+# # app/controllers/sessions_controller.rb
 class Api::V1::SessionController < ApplicationController
 
   def login
@@ -26,11 +26,21 @@ class Api::V1::SessionController < ApplicationController
         result=UspKodieSetLoginDetailsService.new(result,email,token,"1","1")
         details= result.sp_login_details
         Rails.logger.error(details)
-        render json: { message: 'Login successful' ,Login_details: result , details: details ,status: true }
+        profile_path ="#{request.protocol}#{request.host_with_port}/images/#{details}"
+        Rails.logger.error("details")
+        render json: {
+          message: 'Login successful',
+          Login_details: result,
+          profile_path: details.nil? ? nil : profile_path,
+          status: true
+        }
       end
   end
   
 
   
 end
+
+
+
 

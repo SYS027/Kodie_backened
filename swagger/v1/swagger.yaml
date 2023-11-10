@@ -441,10 +441,31 @@ paths:
               example:
                 message: "Data Successfully Stored for Video"
                 status: true
+   /get_All_Property_details:
+    post:
+      summary: Get Property Details By Property ID
+      description: Endpoint to retrieve property details
+      parameters:
+        - name: user
+          in: query
+          required: true
+          schema:
+            type: string
+          example: "username"
+      responses:
+        '200':
+          description: Property Details Retrieved Successfully
+          content:
+            application/json:
+              example:
+                property_details:
+                  - detail1
+                  - detail2
+                status: true              
   /get_property_details_by_id:
     post:
-      summary: Get Property Details by User ID
-      description: Endpoint to retrieve property details by user ID
+      summary: Get Property Details by Account ID
+      description: Endpoint to retrieve property details by Account ID
       parameters:
         - name: user
           in: query

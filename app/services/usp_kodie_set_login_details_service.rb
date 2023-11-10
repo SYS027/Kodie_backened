@@ -19,8 +19,11 @@ class UspKodieSetLoginDetailsService
              )
         ")
         Rails.logger.error("result1")
-        Rails.logger.error(result)
-        result
+        Rails.logger.error(result.to_a)
+      
+        value1 = result.to_a.flatten.first
+        Rails.logger.error(value1)
+        value1
       end
    
 end

@@ -192,6 +192,26 @@ class Api::V1::Step1Controller < ApplicationController
 
   private
   
+  # def save_profile_photo(file)
+  #   filename = File.basename(file)
+  #   local_path = Rails.root.join('public', 'images', @original)
+  #   @full_path = local_path
+  #   FileUtils.cp(file, local_path)
+  # end
+  
+  # def process_saved_file
+   
+  #   saved_file_path = Rails.root.join('public', 'images', @original)
+  #   @saved_file = saved_file_path
+  #   Rails.logger.error("saved_file_path")
+  #   Rails.logger.error(saved_file_path)
+  #   File.open(saved_file_path, 'r') do |file|
+  #     file_content = file.read
+  #     Rails.logger.error("File content:")
+  #     Rails.logger.error(file_content)
+  #   end
+  # end
+    
   def save_profile_photo(file)
     filename = File.basename(file)
     local_path = Rails.root.join('public', 'images', @original)
@@ -200,19 +220,19 @@ class Api::V1::Step1Controller < ApplicationController
   end
   
   def process_saved_file
-   
     saved_file_path = Rails.root.join('public', 'images', @original)
     @saved_file = saved_file_path
+  
     Rails.logger.error("saved_file_path")
     Rails.logger.error(saved_file_path)
+  
     File.open(saved_file_path, 'r') do |file|
       file_content = file.read
       Rails.logger.error("File content:")
       Rails.logger.error(file_content)
     end
   end
-    
-
+  
 
   
 end

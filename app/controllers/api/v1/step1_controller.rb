@@ -66,7 +66,7 @@ class Api::V1::Step1Controller < ApplicationController
     user = params[:user]
    
     images = Array(params[:images])
-   
+    video = Array(params[:video])
     for image_param in images
       content_type = image_param.content_type
       filename = image_param.original_filename
@@ -85,15 +85,72 @@ class Api::V1::Step1Controller < ApplicationController
       file_url = "#{request.protocol}#{request.host_with_port}/images/#{@original}"
      
     end
+    Rails.logger.error(" Video Step 1")
+    for image_param in video
+      content_type = image_param.content_type
+      filename = image_param.original_filename
+      temp_file_path = image_param.tempfile.path
    
-    render json: { message: "Data Successfully Stored for images", profile_photo_path: file_url, profile_photo_name: @original, status: true }
+      Rails.logger.error("Processing image: #{filename}")
+      Rails.logger.error("Temp file path: #{temp_file_path}")
+   
+      @original = filename
+      save_profile_photo(image_param.tempfile.path)
+ 
+      process_saved_file
+   
+      result = UspKodieAddPropertyVideo.new(user, content_type, filename, temp_file_path)
+      result_data = result.save_property_video
+
+      file_url = "#{request.protocol}#{request.host_with_port}/images/#{@original}"
+     
+    end
+
+    render json: { message: "Images And Video Save Successfully", image_photo_path: file_url, profile_photo_name: @original, status: true }
   end
+
+  # def add_property_images
+  #   Rails.logger.error("Step 1")
+  #   user = params[:user]
+  #   images = Array(params[:images])
+  #   videos = Array(params[:video])
+  #   file_urls = []
+  
+  #   images.each do |image_param|
+  #     process_media(image_param, user, UspKodieAddPropertyImages, file_urls)
+  #   end
+  
+  #   videos.each do |video_param|
+  #     process_media(video_param, user, UspKodieAddPropertyVideo, file_urls)
+  #   end
+  
+  #   render json: { message: "Images and Videos Saved Successfully", file_urls: file_urls, status: true }
+  # end
+  
+  # def process_media(media_param, user, result_class, file_urls)
+  #   content_type = media_param.content_type
+  #   filename = media_param.original_filename
+  #   temp_file_path = media_param.tempfile.path
+  
+  #   Rails.logger.error("Processing media: #{filename}")
+  #   Rails.logger.error("Temp file path: #{temp_file_path}")
+  
+  #   @original = filename
+  #   save_profile_photo(temp_file_path)
+  #   process_saved_file
+  
+  #   result = result_class.new(user, content_type, filename, temp_file_path)
+  #   result_data = result.save_property_media
+  
+  #   file_urls << "#{request.protocol}#{request.host_with_port}/images/#{@original}"
+  # end
+  
    
   def add_property_video
     Rails.logger.error(" Video Step 1")
     user = params[:user]
     
-    video = Array(params[:video])
+   
    
     for image_param in video
       content_type = image_param.content_type

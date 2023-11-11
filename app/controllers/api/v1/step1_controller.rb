@@ -109,41 +109,7 @@ class Api::V1::Step1Controller < ApplicationController
     render json: { message: "Images And Video Save Successfully", image_photo_path: file_url, profile_photo_name: @original, status: true }
   end
 
-  # def add_property_images
-  #   Rails.logger.error("Step 1")
-  #   user = params[:user]
-  #   images = Array(params[:images])
-  #   videos = Array(params[:video])
-  #   file_urls = []
   
-  #   images.each do |image_param|
-  #     process_media(image_param, user, UspKodieAddPropertyImages, file_urls)
-  #   end
-  
-  #   videos.each do |video_param|
-  #     process_media(video_param, user, UspKodieAddPropertyVideo, file_urls)
-  #   end
-  
-  #   render json: { message: "Images and Videos Saved Successfully", file_urls: file_urls, status: true }
-  # end
-  
-  # def process_media(media_param, user, result_class, file_urls)
-  #   content_type = media_param.content_type
-  #   filename = media_param.original_filename
-  #   temp_file_path = media_param.tempfile.path
-  
-  #   Rails.logger.error("Processing media: #{filename}")
-  #   Rails.logger.error("Temp file path: #{temp_file_path}")
-  
-  #   @original = filename
-  #   save_profile_photo(temp_file_path)
-  #   process_saved_file
-  
-  #   result = result_class.new(user, content_type, filename, temp_file_path)
-  #   result_data = result.save_property_media
-  
-  #   file_urls << "#{request.protocol}#{request.host_with_port}/images/#{@original}"
-  # end
   
    
   # def add_property_video
@@ -192,26 +158,6 @@ class Api::V1::Step1Controller < ApplicationController
 
   private
   
-  # def save_profile_photo(file)
-  #   filename = File.basename(file)
-  #   local_path = Rails.root.join('public', 'images', @original)
-  #   @full_path = local_path
-  #   FileUtils.cp(file, local_path)
-  # end
-  
-  # def process_saved_file
-   
-  #   saved_file_path = Rails.root.join('public', 'images', @original)
-  #   @saved_file = saved_file_path
-  #   Rails.logger.error("saved_file_path")
-  #   Rails.logger.error(saved_file_path)
-  #   File.open(saved_file_path, 'r') do |file|
-  #     file_content = file.read
-  #     Rails.logger.error("File content:")
-  #     Rails.logger.error(file_content)
-  #   end
-  # end
-    
   def save_profile_photo(file)
     filename = File.basename(file)
     local_path = Rails.root.join('public', 'images', @original)
@@ -220,19 +166,19 @@ class Api::V1::Step1Controller < ApplicationController
   end
   
   def process_saved_file
+   
     saved_file_path = Rails.root.join('public', 'images', @original)
     @saved_file = saved_file_path
-  
     Rails.logger.error("saved_file_path")
     Rails.logger.error(saved_file_path)
-  
     File.open(saved_file_path, 'r') do |file|
       file_content = file.read
       Rails.logger.error("File content:")
       Rails.logger.error(file_content)
     end
   end
-  
+    
+
 
   
 end

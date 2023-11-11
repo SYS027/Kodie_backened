@@ -146,34 +146,34 @@ class Api::V1::Step1Controller < ApplicationController
   # end
   
    
-  def add_property_video
-    Rails.logger.error(" Video Step 1")
-    user = params[:user]
+  # def add_property_video
+  #   Rails.logger.error(" Video Step 1")
+  #   user = params[:user]
     
    
    
-    for image_param in video
-      content_type = image_param.content_type
-      filename = image_param.original_filename
-      temp_file_path = image_param.tempfile.path
+  #   for image_param in video
+  #     content_type = image_param.content_type
+  #     filename = image_param.original_filename
+  #     temp_file_path = image_param.tempfile.path
    
-      Rails.logger.error("Processing image: #{filename}")
-      Rails.logger.error("Temp file path: #{temp_file_path}")
+  #     Rails.logger.error("Processing image: #{filename}")
+  #     Rails.logger.error("Temp file path: #{temp_file_path}")
    
-      @original = filename
-      save_profile_photo(image_param.tempfile.path)
+  #     @original = filename
+  #     save_profile_photo(image_param.tempfile.path)
  
-      process_saved_file
+  #     process_saved_file
    
-      result = UspKodieAddPropertyVideo.new(user, content_type, filename, temp_file_path)
-      result_data = result.save_property_video
+  #     result = UspKodieAddPropertyVideo.new(user, content_type, filename, temp_file_path)
+  #     result_data = result.save_property_video
 
-      file_url = "#{request.protocol}#{request.host_with_port}/images/#{@original}"
+  #     file_url = "#{request.protocol}#{request.host_with_port}/images/#{@original}"
      
-    end
+  #   end
    
-      render json: { message: "Data Successfully Stored for Video", video_path: file_url, video_name: @original, status: true }
-  end
+  #     render json: { message: "Data Successfully Stored for Video", video_path: file_url, video_name: @original, status: true }
+  # end
   
   def get_property_details
     Rails.logger.error(" Video Step 1")

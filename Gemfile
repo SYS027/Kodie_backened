@@ -17,8 +17,9 @@ gem 'rswag'
 gem 'activesupport'
 
 # Use mysql as the database for Active Record
-# gem "mysql2", "~> 0.5"
+gem "mysql2", "~> 0.5"
 gem 'jwt'
+
 gem 'open-uri'
 gem 'fileutils' 
 # Use the Puma web server [https://github.com/puma/puma]
@@ -61,7 +62,7 @@ end
 group :production do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
-  gem "mysql2", "~> 0.5"
+  
 
 end
 

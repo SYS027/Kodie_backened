@@ -3,6 +3,8 @@ class Api::V1::VerificationController < ApplicationController
   require 'fileutils'
    
   def profile_photo
+
+    @email = params[:email]
     @profile_photo = params[:profile_photo]
     
     Rails.logger.error("temp_file_path")
@@ -35,6 +37,7 @@ class Api::V1::VerificationController < ApplicationController
 
   def account_details
     {
+      
       user: @user,
       first_name: @first_name,
       last_name: @last_name,
@@ -65,12 +68,14 @@ class Api::V1::VerificationController < ApplicationController
 
   def create
     profile_photo
-    Rails.logger.error("2")
-    Rails.logger.error(@first_name)
-    Rails.logger.error(@last_name)
+    # Rails.logger.error("2")
+    # Rails.logger.error(@first_name)
+    # Rails.logger.error(@last_name)
   
-    Rails.logger.error("2")
-    Rails.logger.error("2")
+    # Rails.logger.error("2")
+    # Rails.logger.error("2")
+
+    Rails.logger.error()
   
     profile_photo_path = params[:profile_photo]
     if profile_photo_path.present?
@@ -88,17 +93,29 @@ class Api::V1::VerificationController < ApplicationController
       render json: { message: "Profile photo is required", status: false }
       return
     end
-  
-    result = UspKodieSaveStepsJsonData.new(account_details, property_details)
+    
+    payload = {
+      email: @email,
+      exp: 1.hour.from_now.to_i
+    }
+    token=JwtService.generate_token(payload)
+    Rails.logger.error(token)
+    response.headers['Authorization'] = "Bearer #{token}"
+    result = UspKodieSaveStepsJsonData.new(account_details, property_details, @user,@email,token,1,1,)
     result_data = result.create_post_with_tags
-  
-    Rails.logger.error("result")
     Rails.logger.error(result_data)
+    Rails.logger.error("result")
+
+
+    # result=UspKodieSetSignupDetailsService.new(@user,@email,token,"1","1")
+    # details= result.sp_signup_details
+    # Rails.logger.error("details-->")
+    # Rails.logger.error(details)
   
    
     file_url = "#{request.protocol}#{request.host_with_port}/images/#{@original_filename}"
-  
-    render json: { message: "Data Successfully Stored", profile_photo_path: file_url, profile_photo_name: @original_filename, status: true }
+    
+    render json: { message: "Data Successfully Stored",Login_details: result_data , profile_photo_path: file_url, profile_photo_name: @original_filename, status: true }
   end
   
   private

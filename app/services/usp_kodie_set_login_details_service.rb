@@ -9,6 +9,11 @@ class UspKodieSetLoginDetailsService
       end
 
       def sp_login_details
+        
+        Rails.logger.error(@result)
+        Rails.logger.error(@email)
+        Rails.logger.error(@token)
+        
         result = ActiveRecord::Base.connection.execute("
            CALL USP_KODIE_SAVE_LOGIN_DETAILS(
               '#{@result}',
@@ -18,6 +23,8 @@ class UspKodieSetLoginDetailsService
               '#{@device_type}'
              )
         ")
+        Rails.logger.error("Database connected: #{ActiveRecord::Base.connected?}")
+
         Rails.logger.error("result1")
         Rails.logger.error(result.to_a)
       

@@ -5,23 +5,23 @@ ruby "3.2.2"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.8"
-# gem 'rswag'
-# gem 'rspec-rails'
 group :development do
   gem 'letter_opener'
 end
-gem 'bcrypt', '~> 3.1.7'
 gem 'omniauth-facebook'
 group :development, :test do
   gem 'rspec-rails', '~> 3.5'
 end
 gem 'rswag'
 
+gem 'activesupport'
 
 # Use mysql as the database for Active Record
-# gem "mysql2", "~> 0.5"
+gem "mysql2", "~> 0.5"
 gem 'jwt'
- 
+
+gem 'open-uri'
+gem 'fileutils' 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
 
@@ -42,12 +42,12 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
-
+gem 'mail'
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-# gem "rack-cors"
+gem "rack-cors"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -62,7 +62,7 @@ end
 group :production do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
-  gem "mysql2", "~> 0.5"
+  
 
 end
 

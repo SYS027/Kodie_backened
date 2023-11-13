@@ -1,20 +1,38 @@
 class Api::V1::ResetPasswordController < ApplicationController
 
-
     def step_1_reset_password
         email = params[:email]
-        session_service = ForgotPassword.new(email)
+        otp = rand(100_000..999_999)
+        session_service = UspKodieResetPasswordStep1.new(email,otp)
         result = session_service.sp_reset_1(email)
-        render json: { otp: result[0] , status: true }
+        Rails.logger.error("result")
+        Rails.logger.error(result)
+        if result == -1
+
+            render json: { message: "User not Registered" , status: false }
+        else    
+        render json: { message: "OTP Sended Successfully" , status: true }
+        end
     end
 
-    def step_2_reset_password
+    
+    def reset_password
         email = params[:email]
-        otp = params[:otp]
-        session_service = ForgotPasswordStepTwo.new(email,otp)
-        result = session_service.sp_reset_2(email,otp)
-        render json: {message: result[0]  ,generated_on: result[1] , status: true }
+        password = params[:password]
+        updated_password=Base64.encode64(password)
+        session_service = UspKodieResetPasswordStep3.new(email, updated_password)
+        result = session_service.sp_reset_password(email, updated_password)
+        Rails.logger.error(result)
+        if result == 1
+            render json: {message: "Password Successfully Updated" ,status: true}
+        else
+            render json: {message: "Password Not Updated" ,status: false}
+        end    
     end
 
+
+    def generate_otp
+        rand(100_000..999_999)
+      end
 
 end

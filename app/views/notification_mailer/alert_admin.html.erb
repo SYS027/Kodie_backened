@@ -1,1 +1,65 @@
-Hi Admin you Verification code is this;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: rgba(137, 43, 226, 0.616);
+        }
+
+        .main {
+            text-align: center;
+            background-color: rgba(137, 43, 226, 0.616);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .h1 {
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        h4 {
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .otp {
+            background-color: rgba(17, 17, 156, 0.616);
+            width: 180px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            margin: 0 auto;
+        }
+
+        h4.otp-code {
+            color: white;
+            text-align: center;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <h1 class="h1">WELCOME TO KODIE</h1>
+        <h4>Hi <%= params[:email] %> Your Email Verification Code</h4>
+        <div class="otp">
+            <h2 class="otp-code"><%= @otp %></h2>
+        </div>
+    </div>
+</body>
+</html>

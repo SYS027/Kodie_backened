@@ -1,158 +1,485 @@
-openapi: 3.0.0
+openapi: 3.0.3
 info:
-  title: My API 
+  title: My API
   version: 1.0.0
-  servers: 
-   - url: http://localhost:3000/api/v1
+servers:
+   - url: https://cylsys-kodie-api-01-e3fa986bbe83.herokuapp.com/api/v1
+  #  - url: http://127.0.0.1:3000/api/v1
 paths:
-  /api/v1/posts/{postId}:
-    parameters:
-      - name: postId
-        in: path
-        required: true
-        schema:
-          type: integer
-    get:
-      summary: Get a post by ID
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json:
-              example:
-                id: 0
-                title: string
-                created_at: '2023-04-15T19:32:53.182Z'
-                updated_at: '2023-04-15T19:32:53.182Z'
-                url: string
-        '401':
-          description: UnauthorizedError
-          content:
-            application/json:
-              example:
-                error: UnauthorizedError
-                message: Unauthorized access
-        '404':
-          description: RecordNotFound
-          content:
-            application/json:
-              example:
-                error: RecordNotFound
-                message: Record not found
-
+  /user_signup:
     post:
-      summary: Create a new post
+      summary: User Signup
       requestBody:
         required: true
         content:
           application/json:
-            example:
-              title: string
-              url: string
-      responses:
-        '201':
-          description: Created
-          content:
-            application/json:
-              example:
-                id: 1
-                title: string
-                created_at: '2023-04-15T19:32:53.182Z'
-                updated_at: '2023-04-15T19:32:53.182Z'
-                url: string
-        '401':
-          description: UnauthorizedError
-          content:
-            application/json:
-              example:
-                error: UnauthorizedError
-                message: Unauthorized access
-
-    put:
-      summary: Update a post by ID
-      requestBody:
-        required: true
-        content:
-          application/json:
-            example:
-              title: string
-              url: string
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: "test@example.com"
+                password:
+                  type: string
+                  example: "securepassword"
+                is_term_condition:
+                  type: boolean
+                  example: true
+                is_privacy_policy:
+                  type: boolean
+                  example: true
       responses:
         '200':
-          description: Successful response
+          description: User Signup Successful
           content:
             application/json:
               example:
-                id: 1
-                title: string
-                created_at: '2023-04-15T19:32:53.182Z'
-                updated_at: '2023-04-15T19:32:53.182Z'
-                url: string
-        '401':
-          description: UnauthorizedError
+                message: User Signup Successful
+                User_Key: string
+                status: true
+        '409':
+          description: User Already Exists
           content:
             application/json:
               example:
-                error: UnauthorizedError
-                message: Unauthorized access
-        '404':
-          description: RecordNotFound
-          content:
-            application/json:
-              example:
-                error: RecordNotFound
-                message: Record not found
-
-    patch:
-      summary: Partially update a post by ID
+                message: User Already Exists
+                status: false
+  /user_signup_verifyotp:
+    post:
+      summary: Verify OTP for User Signup
       requestBody:
         required: true
         content:
           application/json:
-            example:
-              title: string
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: "test@example.com"
+                otp:
+                  type: number
+                  example: 123456  # Adjust the example to match your expected format
+                is_term_condition:
+                  type: boolean
+                  example: true
+                is_privacy_policy:
+                  type: boolean
+                  example: true
       responses:
         '200':
-          description: Successful response
+          description: OTP Verified
           content:
             application/json:
               example:
-                id: 1
-                title: string
-                created_at: '2023-04-15T19:32:53.182Z'
-                updated_at: '2023-04-15T19:32:53.182Z'
-                url: string
-        '401':
-          description: UnauthorizedError
+                message: OTP Verified
+                status: true
+        '409':
+          description: OTP Verification Failed
           content:
             application/json:
               example:
-                error: UnauthorizedError
-                message: Unauthorized access
-        '404':
-          description: RecordNotFound
-          content:
-            application/json:
-              example:
-                error: RecordNotFound
-                message: Record not found
-
-    delete:
-      summary: Delete a post by ID
+                message: OTP Not Verified
+                status: false
+  /user_save_signup_account_details:
+    post:
+      summary: Save Account and Property Details
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                account_details:
+                  type: object
+                  properties:
+                    user:
+                      type: string
+                      example: "username"
+                    first_name:
+                      type: string
+                      example: "John"
+                    last_name:
+                      type: string
+                      example: "Doe"
+                    phone_number:
+                      type: string
+                      example: "1234567890"
+                    physical_address:
+                      type: string
+                      example: "123 Main St"
+                    organisation_name:
+                      type: string
+                      example: "ABC Corp"
+                    referral_code:
+                      type: string
+                      example: "REF123"
+                    profile_photo:
+                      type: string
+                      example: "REF123"  
+                    describe_yourself:
+                      type: string
+                      example: "Description of yourself"
+                    property_manage:
+                      type: string
+                      example: "Yes"
+                    kodie_help:
+                      type: string
+                      example: "Yes"
+                property_details:
+                  type: object
+                  properties:
+                    location:
+                      type: string
+                      example: "City"
+                    location_longitude:
+                      type: number
+                      example: -74.0059
+                    location_latitude:
+                      type: number
+                      example: 40.7128
+                    islocation:
+                      type: boolean
+                      example: true
+                    property_description:
+                      type: string
+                      example: "Description of the property"
+                    property_type:
+                      type: string
+                      example: "Residential"
+                    key_features:
+                      type: string
+                      example: "Feature 1, Feature 2"
+                    additional_features:
+                      type: string
+                      example: "Additional Feature 1, Additional Feature 2"
       responses:
-        '204':
-          description: No content
+        '200':
+          description: Details Saved Successfully
+          content:
+            application/json:
+              example:
+                message: Details Saved Successfully
+  /user_login:
+    post:
+      summary: User Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: "test@example.com"
+                password:
+                  type: string
+                  example: "securepassword"
+      responses:
+        '200':
+          description: Login Successful
+          content:
+            application/json:
+              example:
+                message: Login successful
+                token: "your_generated_token"
+                status: true
         '401':
-          description: UnauthorizedError
+          description: Invalid Login Details
           content:
             application/json:
               example:
-                error: UnauthorizedError
-                message: Unauthorized access
-        '404':
-          description: RecordNotFound
+                message: Invalid login details
+                status: false
+  /user_reset_password_email_verify:
+    post:
+      summary: Step 1 - Reset Password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: "test@example.com"
+      responses:
+        '200':
+          description: OTP Sent Successfully
           content:
             application/json:
               example:
-                error: RecordNotFound
-                message: Record not found
+                message: OTP Sent Successfully
+                status: true
+        '200':
+          description: User not Registered
+          content:
+            application/json:
+              example:
+                message: User not Registered
+                status: false
+  /user_signup_verifyotp:
+    post:
+      summary: Step 2 - Reset Password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: "test@example.com"
+                otp:
+                  type: number
+                  example: 123456  # Adjust the example to match your expected format
+                is_term_condition:
+                  type: boolean
+                  example: true
+                is_privacy_policy:
+                  type: boolean
+                  example: true
+      responses:
+        '200':
+          description: OTP Verified
+          content:
+            application/json:
+              example:
+                message: OTP Verified
+                status: true
+        '409':
+          description: OTP Verification Failed
+          content:
+            application/json:
+              example:
+                message: OTP Not Verified
+                status: false
+  /user_reset_password:
+    post:
+      summary: Reset Password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: "test@example.com"
+                password:
+                  type: string
+                  example: "newsecurepassword"
+      responses:
+        '200':
+          description: Password Successfully Updated
+          content:
+            application/json:
+              example:
+                message: Password Successfully Updated
+                status: true
+        '200':
+          description: Password Not Updated
+          content:
+            application/json:
+              example:
+                message: Password Not Updated
+                status: false
+  /lookup_details:
+    post:
+      summary: Get LookUp Data
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                P_PARENT_CODE:
+                  type: string
+                  example: "parent_code_value"
+                P_TYPE:
+                  type: string
+                  example: "type_value"
+      responses:
+        '200':
+          description: LookUp Data Retrieved Successfully
+          content:
+            application/json:
+              example:
+                data:
+                  - item1
+                  - item2
+                status: true
+  /key_features:
+    get:
+      summary: 'Get Key Features Endpoint'
+      description: 'Endpoint to retrieve key features'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: 'Successful response'
+          content:
+            application/json:
+              example:
+                PAF_KEY: "your_key_value"
+                status: true
+  /add_property_details:
+    post:
+      summary: Property Details Endpoint
+      description: Endpoint to save property details
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: string
+                  example: "username"
+                user_account_details_id:
+                  type: string
+                  example: "user_account_details_id_value"
+                location:
+                  type: string
+                  example: "City"
+                location_longitude:
+                  type: number
+                  example: -74.0059
+                location_latitude:
+                  type: number
+                  example: 40.7128
+                islocation:
+                  type: boolean
+                  example: true
+                property_description:
+                  type: string
+                  example: "Description of the property"
+                property_type:
+                  type: string
+                  example: "Residential"
+                key_features:
+                  type: string
+                  example: "Feature 1, Feature 2"
+                additional_features:
+                  type: string
+                  example: "Additional Feature 1, Additional Feature 2"
+                additional_key_features:
+                  type: string
+                  example: "Additional Key Feature 1, Additional Key Feature 2"
+                autolist:
+                  type: string
+                  example: "AutoList Value"
+      responses:
+        '200':
+          description: Property Added Successfully
+          content:
+            application/json:
+              example:
+                property_id: "your_property_id"
+                message: "Property Add Successfully"
+                status: true
+  /add_property_images:
+    post:
+      summary: Add Property Images
+      description: Endpoint to add property images
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: string
+                  example: "username"
+                images:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      responses:
+        '200':
+          description: Images Added Successfully
+          content:
+            application/json:
+              example:
+                message: "Data Successfully Stored for images"
+                profile_photo_path: "http://your-api-base-url.com/images/filename.jpg"
+                profile_photo_name: "filename.jpg"
+                status: true
+  /add_property_video:
+    post:
+      summary: Add Property Video
+      description: Endpoint to add property video
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: string
+                  example: "username"
+                video:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      responses:
+        '200':
+          description: Video Added Successfully
+          content:
+            application/json:
+              example:
+                message: "Data Successfully Stored for Video"
+                status: true
+   /get_All_Property_details:
+    post:
+      summary: Get Property Details By Property ID
+      description: Endpoint to retrieve property details
+      parameters:
+        - name: user
+          in: query
+          required: true
+          schema:
+            type: string
+          example: "username"
+      responses:
+        '200':
+          description: Property Details Retrieved Successfully
+          content:
+            application/json:
+              example:
+                property_details:
+                  - detail1
+                  - detail2
+                status: true              
+  /get_property_details_by_id:
+    post:
+      summary: Get Property Details by Account ID
+      description: Endpoint to retrieve property details by Account ID
+      parameters:
+        - name: user
+          in: query
+          required: true
+          schema:
+            type: string
+          example: "username"
+      responses:
+        '200':
+          description: Property Details Retrieved Successfully
+          content:
+            application/json:
+              example:
+                property_details:
+                  - detail1
+                  - detail2
+                status: true

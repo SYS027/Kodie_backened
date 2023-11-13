@@ -55,18 +55,42 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :letter_opener
 
   config.action_mailer.default_url_options = { host: 'localhost:3000' } # Update with your actual host
-config.action_mailer.delivery_method = :smtp
+# config.action_mailer.delivery_method = :smtp
 config.action_mailer.perform_deliveries = true
+# config.action_mailer.smtp_settings = {
+#   address: 'smtp.example.com', # Update with your SMTP server
+#   port: 587,
+#   authentication: :plain,
+#   user_name: 'pankajt0201@gmail.com',
+#   password: 'pankajtete@123',
+#   enable_starttls_auto: true
+# }
+
+config.action_mailer.delivery_method = :smtp
 config.action_mailer.smtp_settings = {
-  address: 'smtp.example.com', # Update with your SMTP server
+  address: "smtp-mail.outlook.com",
   port: 587,
-  authentication: :plain,
-  user_name: 'pankajt0201@gmail.com',
-  password: 'pankajtete@123',
+  domain: "your-domain.com", 
+  user_name: "Pankaj.Tete@cylsys.com",
+  password: "Cylsys@2",
+  authentication: :login,
   enable_starttls_auto: true
 }
 
 
+# config.action_mailer.delivery_method = :smtp
+# config.action_mailer.default_url_options = { 
+# :host => '<your_url_here>', 
+# :protocol => 'http'
+# }
+# config.action_mailer.smtp_settings = {
+# :address => 'smtp.gmail.com',
+# :port => 601,
+# :user_name => "pankajt0201@gmail.com",
+# :password => "Cylsys@2",
+# :authentication => 'plain',
+# :enable_starttls_auto => true
+# }
 
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true

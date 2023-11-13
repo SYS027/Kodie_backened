@@ -69,7 +69,6 @@ GEM
     addressable (2.8.5)
       public_suffix (>= 2.0.2, < 6.0)
     base64 (0.1.1)
-    bcrypt (3.1.19)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
     builder (3.2.4)
@@ -86,6 +85,7 @@ GEM
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.2)
+    fileutils (1.7.1)
     globalid (1.2.1)
       activesupport (>= 6.1)
     hashie (5.0.0)
@@ -145,6 +145,10 @@ GEM
     omniauth-oauth2 (1.8.0)
       oauth2 (>= 1.4, < 3)
       omniauth (~> 2.0)
+    open-uri (0.3.0)
+      stringio
+      time
+      uri
     psych (5.1.1.1)
       stringio
     public_suffix (5.0.3)
@@ -152,6 +156,8 @@ GEM
       nio4r (~> 2.0)
     racc (1.7.1)
     rack (2.2.8)
+    rack-cors (2.0.1)
+      rack (>= 2.0.0)
     rack-protection (3.1.0)
       rack (~> 2.2, >= 2.2.4)
     rack-test (2.1.0)
@@ -226,11 +232,14 @@ GEM
       version_gem (~> 1.1, >= 1.1.1)
     stringio (3.0.8)
     thor (1.2.2)
+    time (0.2.2)
+      date
     timeout (0.4.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     tzinfo-data (1.2023.3)
       tzinfo (>= 1.0.0)
+    uri (0.12.2)
     version_gem (1.1.3)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
@@ -241,14 +250,18 @@ PLATFORMS
   x64-mingw-ucrt
 
 DEPENDENCIES
-  bcrypt (~> 3.1.7)
+  activesupport
   bootsnap
   debug
+  fileutils
   jwt
   letter_opener
+  mail
   mysql2 (~> 0.5)
   omniauth-facebook
+  open-uri
   puma (~> 5.0)
+  rack-cors
   rails (~> 7.0.8)
   rspec-rails (~> 3.5)
   rswag

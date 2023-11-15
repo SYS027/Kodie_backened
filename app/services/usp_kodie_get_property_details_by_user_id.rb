@@ -7,7 +7,7 @@ class UspKodieGetPropertyDetailsByUserId
     Rails.logger.error("step1prop")
     Rails.logger.error(@user)
     connection = ActiveRecord::Base.connection.raw_connection
-    result = connection.query("CALL USP_KODIE_GET_ALL_PROPERTY_DETAILS_BY_USER_ID('#{@user}')")
+    result = connection.query("CALL USP_KODIE_GET_ALL_PROPERTY_DETAILS_BY_USER_ID_test('#{@user}')")
 
     connection.close
     Rails.logger.error("step2prop")
@@ -29,9 +29,10 @@ class UspKodieGetPropertyDetailsByUserId
   def process_data(results, request)
     processed_data = results.map do |row|
       {
-        image_path: row[0].nil? ? nil : "#{request.protocol}#{request.host_with_port}/images/#{row[0]}",
-        location: row[2],
-        property_type: row[1],
+        property_id: row[0],
+        image_path: row[1].nil? ? nil : "#{request.protocol}#{request.host_with_port}/images/#{row[1]}",
+        location: row[3],
+        property_type: row[2],
       }
     end
     processed_data

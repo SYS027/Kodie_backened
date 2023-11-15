@@ -15,6 +15,26 @@ class Api::V1::Step1Controller < ApplicationController
      additional_features: params[:additional_features],
      additional_key_features: params[:additional_key_features],
      autolist: params[:autolist]
+     
+    }
+  end
+
+  def update_details
+    {
+     user: params[:user],
+     user_account_details_id: params[:user_account_details_id],
+     location: params[:location],
+     location_longitude: params[:location_longitude],
+     location_latitude: params[:location_latitude],
+     islocation: params[:islocation],
+     property_description: params[:property_description],
+     property_type: params[:property_type],
+     key_features: params[:key_features],
+     additional_features: params[:additional_features],
+     additional_key_features: params[:additional_key_features],
+     autolist: params[:autolist],
+     property_id: params[:property_id]
+     
     }
   end
   
@@ -153,6 +173,17 @@ class Api::V1::Step1Controller < ApplicationController
   
 
     render json: { property_details: result_data , status: true }
+
+  end
+
+  def update_property_detail
+    Rails.logger.error(update_details)
+    
+    step1_service = UspKodieUpdatePropertyDetails.new(update_details)
+    result= step1_service.update_property
+
+    Rails.logger.error(result) 
+    render json: {  message: "Property Updated Successfully" ,status: true }
 
   end
 

@@ -187,6 +187,71 @@ class Api::V1::Step1Controller < ApplicationController
 
   end
 
+  def update_property_images_video
+   
+   
+    Rails.logger.error("Step 1")
+    user = params[:user]
+   
+    images = Array(params[:images])
+    Rails.logger.error(images.length)
+    video = Array(params[:video])
+    Rails.logger.error(video.length)
+
+    if images.length >0 
+    update= UspKodieUpdateImagesVideo.new(user)
+    result= update.update_property_images
+    Rails.logger.error("Images Deleted Successfully")
+
+    else video.length >0
+      update= UspKodieUpdateImagesVideo.new(user)
+      result1 =update.update_property_video
+      Rails.logger.error("Video Deleted Successfully")
+
+    end  
+
+    for image_param in images
+      content_type = image_param.content_type
+      filename = image_param.original_filename
+      temp_file_path = image_param.tempfile.path
+   
+      Rails.logger.error("Processing image: #{filename}")
+      Rails.logger.error("Temp file path: #{temp_file_path}")
+   
+      @original = filename
+      save_profile_photo(image_param.tempfile.path)
+ 
+      process_saved_file
+   
+      result = UspKodieAddPropertyImages.new(user, content_type, filename, temp_file_path)
+      result_data = result.save_property_images
+      file_url = "#{request.protocol}#{request.host_with_port}/images/#{@original}"
+     
+    end
+    Rails.logger.error(" Video Step 1")
+    for image_param in video
+      content_type = image_param.content_type
+      filename = image_param.original_filename
+      temp_file_path = image_param.tempfile.path
+   
+      Rails.logger.error("Processing image: #{filename}")
+      Rails.logger.error("Temp file path: #{temp_file_path}")
+   
+      @original = filename
+      save_profile_photo(image_param.tempfile.path)
+ 
+      process_saved_file
+   
+      result = UspKodieAddPropertyVideo.new(user, content_type, filename, temp_file_path)
+      result_data = result.save_property_video
+
+      file_url = "#{request.protocol}#{request.host_with_port}/images/#{@original}"
+     
+    end
+
+    render json: { message: "Images And Video Updated Successfully", image_photo_path: file_url, profile_photo_name: @original, status: true }
+  end  
+
   private
   
   def save_profile_photo(file)

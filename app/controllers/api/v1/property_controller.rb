@@ -18,9 +18,6 @@ class Api::V1::PropertyController < ApplicationController
    
     end
 
-
-
-
     def delete_property_by_id
       Rails.logger.error(" property Step 1")
       property_id = params[:property_id]
@@ -38,5 +35,19 @@ class Api::V1::PropertyController < ApplicationController
         render json: { message: "Property Deleted Successfully", status: true }
       end
     end
+
+
+    def get_Details_by_filter
+        property_filter = params[:property_filter]
+        user_account_id = params[:user_account_id]
+
+        Rails.logger.error(property_filter)
+        getproperty= UspKodieGetPropertyDetailByFilter.new(property_filter,user_account_id)
+        get_all_details=getproperty.get_property_details_filter(request)
+
+        Rails.logger.error(get_all_details)
+        render json: { property_details: get_all_details, status: true }
+
+    end  
      
 end

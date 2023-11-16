@@ -33,13 +33,25 @@ class UspKodieGetPropertyDetailByFilter
         processed_data = results.map do |row|
           {
             property_id: row[0],
-            image_path: row[1].nil? ? nil : "#{request.protocol}#{request.host_with_port}/images/#{row[1]}",
+            image_path: generate_image_paths(row[1], request, "prefix_"),
             location: row[3],
             property_type: row[2],
           }
         end
         processed_data
     end
+    def generate_image_paths(image_names, request, prefix_text)
+   
+        return [] if image_names.nil?
+        
+        Rails.logger.error(image_names)
+         image_names_array = image_names.split(',').map(&:strip)
+         Rails.logger.error(image_names_array)
+        base_url = "#{request.protocol}#{request.host_with_port}/images/"
+        image_paths_array = image_names_array.map { |image_name| "#{base_url}#{image_name}" }
+        Rails.logger.error(image_paths_array)
+        image_paths_array
+      end
 
 end 
    

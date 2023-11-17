@@ -86,7 +86,7 @@ class UspKodieGetAllPropertyDetailsReview
   end
   def generate_image_paths(image_names, request, prefix_text)
    
-   
+    return [] if image_names.nil?
     
     Rails.logger.error(image_names)
      image_names_array = image_names.split(',').map(&:strip)

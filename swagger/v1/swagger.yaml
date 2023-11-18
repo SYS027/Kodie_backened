@@ -441,7 +441,7 @@ paths:
               example:
                 message: "Data Successfully Stored for Video"
                 status: true
-   /get_All_Property_details:
+  /get_All_Property_details:
     post:
       summary: Get Property Details By Property ID
       description: Endpoint to retrieve property details

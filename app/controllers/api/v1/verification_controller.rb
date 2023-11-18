@@ -6,7 +6,7 @@ class Api::V1::VerificationController < ApplicationController
  
     @email = params[:email]
     @profile_photo = params[:profile_photo]
-   
+    @phone_number = params[:phone_number]
     Rails.logger.error("temp_file_path")
     Rails.logger.error(@temp_file_path)
     Rails.logger.error("temp_file_path2")
@@ -33,6 +33,7 @@ class Api::V1::VerificationController < ApplicationController
     Rails.logger.error(@physical_address)
     Rails.logger.error(@organisation_name)
     Rails.logger.error(@referral_code)
+    Rails.logger.error(@phone_number)
   end
  
   def account_details
@@ -41,6 +42,7 @@ class Api::V1::VerificationController < ApplicationController
       user: @user,
       first_name: @first_name,
       last_name: @last_name,
+      phone_number: @phone_number,
       physical_address: @physical_address,
       organisation_name: @organisation_name,
       referral_code: @referral_code,
@@ -54,9 +56,9 @@ class Api::V1::VerificationController < ApplicationController
  
   def property_details
     {
-      location: @organisation_name,
-      location_longitude: @organisation_name,
-      location_latitude: @location_longitude,
+      location: @location,
+      location_longitude: @location_longitude,
+      location_latitude: @location_latitude,
       islocation: @islocation,
       property_description: @property_description,
       property_type: @property_type,
@@ -68,15 +70,7 @@ class Api::V1::VerificationController < ApplicationController
  
   def create
     profile_photo
-    # Rails.logger.error("2")
-    # Rails.logger.error(@first_name)
-    # Rails.logger.error(@last_name)
- 
-    # Rails.logger.error("2")
-    # Rails.logger.error("2")
- 
-    Rails.logger.error()
- 
+
     profile_photo_path = params[:profile_photo]
     if profile_photo_path.present?
       content_type =  @profile_photo.content_type

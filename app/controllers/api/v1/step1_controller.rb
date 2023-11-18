@@ -1,5 +1,5 @@
 class Api::V1::Step1Controller < ApplicationController
-   
+  require 'cgi'
 
   def property_details
     {
@@ -96,8 +96,9 @@ class Api::V1::Step1Controller < ApplicationController
       Rails.logger.error("Temp file path: #{temp_file_path}")
    
       @original = filename
+      # @original = CGI.escape(filename)
       save_profile_photo(image_param.tempfile.path)
- 
+      
       process_saved_file
    
       result = UspKodieAddPropertyImages.new(user, content_type, filename, temp_file_path)

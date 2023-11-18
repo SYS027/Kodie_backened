@@ -34,8 +34,9 @@ class UspKodieGetPropertyDetailByFilter
           {
             property_id: row[0],
             image_path: generate_image_paths(row[1], request, "prefix_"),
-            location: row[3],
+            location: row[4],
             property_type: row[2],
+            property_type_id: row[3]
           }
         end
         processed_data

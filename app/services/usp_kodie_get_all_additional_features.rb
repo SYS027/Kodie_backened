@@ -21,8 +21,8 @@ class UspKodieGetAllAdditionalFeatures
   def process_data(results)
     processed_data = results.map do |row|
       {
-        PAF_KEY: row[0],
-        PAF_ADDITIONAL_FEATURES_NAME: row[1]
+        key: row[0],
+        FeatureName: row[1]
       }
     end
     processed_data

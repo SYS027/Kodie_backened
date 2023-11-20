@@ -1,13 +1,17 @@
 class UspKodieGetPropertyDetailsByUserId
-  def initialize(user)
+  def initialize(user,page_no,p_limit,p_order_col,p_order_wise)
     @user = user
+    @page_no= page_no
+    @p_limit =p_limit
+    @p_order_col =p_order_col
+    @p_order_wise = p_order_wise
   end
 
   def get_property_details(request)
     Rails.logger.error("step1prop")
     Rails.logger.error(@user)
     connection = ActiveRecord::Base.connection.raw_connection
-    result = connection.query("CALL USP_KODIE_GET_ALL_PROPERTY_DETAILS_BY_USER_ID('#{@user}')")
+    result = connection.query("CALL USP_KODIE_GET_ALL_PROPERTY_DETAILS_BY_USER_ID_TEST_1('#{@user}','#{@page_no}','#{@p_limit}','#{@p_order_col}','#{@p_order_wise}')")
 
     connection.close
     Rails.logger.error("step2prop")

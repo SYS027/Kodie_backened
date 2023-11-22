@@ -1,8 +1,12 @@
 class UspKodieGetPropertyDetailByFilter
 
-    def initialize(property_filter,user_account_id)
+    def initialize(property_filter,user_account_id,page_no,limit,order_col,order_wise)
         @property_filter = property_filter
         @user_account_id = user_account_id
+        @page_no =page_no
+        @limit = limit
+        @order_col =order_col
+        @order_wise=order_wise
     end
     
     def get_property_details_filter(request)
@@ -10,7 +14,7 @@ class UspKodieGetPropertyDetailByFilter
         Rails.logger.error(@property_filter)
         Rails.logger.error(@user_account_id)
         connection = ActiveRecord::Base.connection.raw_connection
-        result = connection.query("CALL USP_KODIE_GET_ALL_PROPERTY_BY_FILTER('#{@property_filter}','#{@user_account_id}')")
+        result = connection.query("CALL USP_KODIE_GET_ALL_PROPERTY_BY_FILTER_TEST('#{@property_filter}','#{@user_account_id}','#{@page_no}','#{@limit}','#{@order_col}','#{@order_wise}')")
     
         connection.close
         Rails.logger.error("step2prop")
@@ -36,7 +40,10 @@ class UspKodieGetPropertyDetailByFilter
             image_path: generate_image_paths(row[1], request, "prefix_"),
             location: row[4],
             property_type: row[2],
-            property_type_id: row[3]
+            property_type_id: row[3],
+            State: row[5],
+            Country: row[6],
+            City: row[7]
           }
         end
         processed_data

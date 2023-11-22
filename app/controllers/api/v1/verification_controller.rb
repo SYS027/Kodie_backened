@@ -27,6 +27,17 @@ class Api::V1::VerificationController < ApplicationController
     @property_type =params[:property_type]
     @key_features =params[:key_features]
     @additional_features =params[:additional_features]
+    @p_longitude =params[:p_longitude]
+    @p_latitude =params[:p_latitude]
+    @State =params[:State]
+    @Country =params[:Country]
+    @City =params[:City]
+    @autolist =params[:auto_list]
+    @land_area =params[:land_area]
+    @floor_size =params[:floor_size]
+    @p_state =params[:p_state]
+    @p_country= params[:p_country]
+    @p_city = params[:p_city]
     Rails.logger.error(@profile_photo)
     Rails.logger.error(@first_name)
     Rails.logger.error(@last_name)
@@ -34,6 +45,17 @@ class Api::V1::VerificationController < ApplicationController
     Rails.logger.error(@organisation_name)
     Rails.logger.error(@referral_code)
     Rails.logger.error(@phone_number)
+    Rails.logger.error(@p_longitude)
+    Rails.logger.error(@p_latitude)
+    Rails.logger.error(@State)
+    Rails.logger.error(@Country)
+    Rails.logger.error(@City)
+    Rails.logger.error(@autolist)
+    Rails.logger.error(@land_area)
+    Rails.logger.error(@floor_size)
+    Rails.logger.error(@p_state)
+    Rails.logger.error(@p_country)
+    Rails.logger.error(@p_city)
   end
  
   def account_details
@@ -44,6 +66,11 @@ class Api::V1::VerificationController < ApplicationController
       last_name: @last_name,
       phone_number: @phone_number,
       physical_address: @physical_address,
+      p_longitude:@p_longitude,
+      p_latitude: @p_latitude,
+      State: @State,
+      Country: @Country,
+      City:@City,
       organisation_name: @organisation_name,
       referral_code: @referral_code,
       profile_photo: @original_filename,
@@ -57,14 +84,19 @@ class Api::V1::VerificationController < ApplicationController
   def property_details
     {
       location: @location,
+      p_state: @p_state,
+      p_country: @p_country,
+      p_city: @p_city,
       location_longitude: @location_longitude,
       location_latitude: @location_latitude,
       islocation: @islocation,
       property_description: @property_description,
       property_type: @property_type,
       key_features: @key_features,
-      additional_features: @additional_features
-     
+      floor_size: @floor_size,
+      land_area: @land_area,
+      additional_features: @additional_features,
+      auto_list:@autolist
     }
   end
  

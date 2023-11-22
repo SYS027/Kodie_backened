@@ -28,15 +28,21 @@ class UspKodieGetAllPropertyDetailsReview
     processed_data = results.map do |row|
       {
         location: row[0],
-        property_description: row[1],
-        property_type_id: row[2],
-        property_type: row[3],
-        key_features_id: row[4],
-        key_features: row[5],
-        additional_features: row[6],
-        additional_key_features: row[7],
-        image_path: generate_image_paths(row[8], request, "prefix_"),
-        video_path: generate_image_paths(row[9], request, "prefix_")
+        location_longitude: row[1],
+        location_latitude: row[2],
+        State:row[3],
+        Country:row[4],
+        City:row[5],
+        property_description: row[6],
+        property_type_id: row[7],
+        property_type: row[8],
+        key_features: row[9],
+        floor_size: row[10],
+        land_area: row[11],
+        additional_features: row[12],
+        additional_key_features: row[13],
+        image_path: generate_image_paths(row[14], request, "prefix_"),
+        video_path: generate_image_paths(row[15], request, "prefix_")
       }
     end
     processed_data

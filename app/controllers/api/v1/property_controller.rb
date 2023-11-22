@@ -46,11 +46,27 @@ class Api::V1::PropertyController < ApplicationController
 
 
     def get_Details_by_filter
+      Rails.logger.error("property_filter")
         property_filter = params[:property_filter]
+        Rails.logger.error("1")
         user_account_id = params[:user_account_id]
+        Rails.logger.error("2property_filter")
+        page_no =params[:page_no]
+        Rails.logger.error("3property_filter")
+        limit =params[:limit]
+        Rails.logger.error("4property_filter")
+        order_col = params[:order_col]
+        Rails.logger.error("5property_filter")
+        order_wise =params[:order_wise]
+
 
         Rails.logger.error(property_filter)
-        getproperty= UspKodieGetPropertyDetailByFilter.new(property_filter,user_account_id)
+        Rails.logger.error(page_no)
+        Rails.logger.error(limit)
+        Rails.logger.error(order_col)
+        Rails.logger.error(order_wise)
+
+        getproperty= UspKodieGetPropertyDetailByFilter.new(property_filter,user_account_id,page_no,limit,order_col,order_wise)
         get_all_details=getproperty.get_property_details_filter(request)
 
         Rails.logger.error(get_all_details)

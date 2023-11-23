@@ -78,7 +78,7 @@ class UspKodieSaveStepsJsonData
     Rails.logger.error(result.to_a)
     # Rails.logger.error(result2.to_a)
     # result2
-    value=[user: @user, email: @email,token:  @token,device_id: @device_id,device_type: @device_type]
+    value={user: @user, email: @email,token:  @token,device_id: @device_id,device_type: @device_type}
     value
    
   end

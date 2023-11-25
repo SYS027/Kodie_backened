@@ -3,8 +3,8 @@ info:
   title: My API
   version: 1.0.0
 servers:
-   - url: https://cylsys-kodie-api-01-e3fa986bbe83.herokuapp.com/api/v1
-  #  - url: http://127.0.0.1:3000/api/v1
+    - url: https://cylsys-kodie-api-01-e3fa986bbe83.herokuapp.com/api/v1
+   # - url: http://127.0.0.1:3000/api/v1
 paths:
   /user_signup:
     post:
@@ -462,24 +462,168 @@ paths:
                   - detail1
                   - detail2
                 status: true              
-  /get_property_details_by_id:
-    post:
-      summary: Get Property Details by Account ID
-      description: Endpoint to retrieve property details by Account ID
+  /update_property_details:
+    put:
+      summary: 'Update Property Details'
       parameters:
-        - name: user
-          in: query
+        - name: update_details
+          in: body
+          description: 'Details to update property'
           required: true
           schema:
-            type: string
-          example: "username"
+            type: object
+            properties:
+              # Add properties based on the update_details structure
+              example:
+                key1: 'value1'
+                key2: 'value2'
       responses:
         '200':
-          description: Property Details Retrieved Successfully
+          description: 'Property updated successfully'
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: 'Property Updated Successfully'
+              status:
+                type: boolean
+                example: true
+  /update_property_images_video_details:
+    put:
+      summary: 'Update Property Images or Video'
+      description: 'Endpoint to add property images or video'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: string
+                  example: "username"
+                images:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+                video:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+              required:
+                - user
+                - images
+              anyOf:
+                - required:
+                    - images
+                - required:
+                    - video
+      responses:
+        '200':
+          description: Data Added Successfully
           content:
             application/json:
               example:
-                property_details:
-                  - detail1
-                  - detail2
+                message: "Data Successfully Stored"
                 status: true
+  /delete_property_by_id:
+    delete:
+      summary: 'Delete Property by ID'
+      parameters:
+        - name: property_id
+          in: query
+          description: 'ID of the property to delete'
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: 'Property deleted successfully'
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: 'Property Deleted Successfully'
+              status:
+                type: boolean
+                example: true
+        '404':
+          description: 'Property ID not found'
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: 'Property ID Not Found'
+              status:
+                type: boolean
+                example: true
+  /get_property_details_by_filter:
+    post:
+      summary: 'Get Property Details by Filter'
+      parameters:
+        - name: property_filter
+          in: query
+          description: 'Filter for property details'
+          required: true
+          type: string
+        - name: user_account_id
+          in: query
+          description: 'User account ID'  
+          required: true
+          type: integer
+        - name: page_no
+          in: query
+          description: 'Page number'
+          required: true
+          type: integer
+        - name: limit
+          in: query
+          description: 'Limit of results per page'
+          required: true
+          type: integer
+        - name: order_col
+          in: query
+          description: 'Column for sorting'
+          type: string
+        - name: order_wise
+          in: query
+          description: 'Order (asc or desc)'
+          type: string
+      responses:
+        '200':
+          description: 'Property details retrieved successfully'
+          schema:
+            type: object
+            properties:
+              property_details:
+                type: object
+                example: {} # Add example data here
+              status:
+                type: boolean
+                example: true
+  /archieve_property:
+    post:
+      summary: 'Add Property Details to Archive'
+      parameters:
+        - name: property_id
+          in: query
+          description: 'ID of the property to archive'
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: 'Property added to archive successfully'
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: 'Property added to archive successfully'
+              status:
+                type: boolean
+                example: 
+                   

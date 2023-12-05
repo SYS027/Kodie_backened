@@ -40,9 +40,11 @@ class UspKodieGetAllPropertyDetailsReview
         floor_size: row[10],
         land_area: row[11],
         additional_features: row[12],
-        additional_key_features: row[13],
-        image_path: generate_image_paths(row[14], request, "prefix_"),
-        video_path: generate_image_paths(row[15], request, "prefix_")
+        additional_features_id: row[13],
+        additional_key_features: row[14],
+        additional_key_features_id: row[15],
+        image_path: generate_image_paths(row[16], request, "prefix_"),
+        video_path: generate_image_paths(row[17], request, "prefix_")
       }
     end
     processed_data
